@@ -12,13 +12,20 @@ class UsersController < ApplicationController
           render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
         end
     end
-    
-    def show 
-        user =User.find_by(id: session[:user_id])
+    def routines
+        user = User.find_by(id: session[:user_id])
         if user
             render json: user
         else
-            render json: { error: "Not authorized" }, status: :unauthorized
+            render json: { error: "not found" }, status: :not_found
+        end
+    end
+    def show 
+        user =User.find_by(id: session[:user_id])
+        if user
+            render json: user,serializer: SchedualSerializer
+        else
+            render json: { error: "not authorized" }, status: :unauthorized
         end
     end
 
