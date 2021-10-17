@@ -11,13 +11,13 @@ class DaysController < ApplicationController
     def show 
         day = Day.find_by(:id => params[:id])
         if day
-            render json: day,serializer: 
+            render json: day,serializer: DotwSerializer
         else
             render json: {error: "Not authorized"}, status: :unauthorized
         end
     end
     private
     def day_params
-        params.permit(:title, :user_id)
+        params.permit(:dotw, :title)
     end
 end

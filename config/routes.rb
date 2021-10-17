@@ -5,7 +5,10 @@ Rails.application.routes.draw do
 
   get "/Routine",to: "routines#routines"
   get "/Routine/:id", to: "routines#show"
-  
+  #add a update here so you can change the title value for the days
+
+
+  get "/Workout/:id", to: "days#show"
 
 
 
