@@ -23,7 +23,7 @@ sunday = Day.create(dotw: "Sunday", title: "rest day", routine_id: bulk.id)
 
 puts'seeding workouts'
 Workout.create(name: "Incline Dumbbell Fly",primary_muscle: "Chest", day_id: monday.id)
-
+Workout.create(name: "Incline Dumbbell Chestpress",primary_muscle: "Chest", day_id: monday.id)
 puts 'seeding sets'
 WorkoutSet.create(reps: 15, prior_weight: 30, workout_id: 1)
 WorkoutSet.create(reps: 15, prior_weight: 30, workout_id: 1)

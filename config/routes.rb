@@ -5,10 +5,27 @@ Rails.application.routes.draw do
 
   get "/Routine",to: "routines#routines"
   get "/Routine/:id", to: "routines#show"
+  # update "/UpdateRoutine/:id", to: "routines#update"#
+  
   #add a update here so you can change the title value for the days
 
 
   get "/Workout/:id", to: "days#show"
+
+  post "/CreateWorkout", to: "workouts#create"#
+  get "/Cards/:id", to: "workouts#showCurWorkouts"
+  get "/WorkoutList", to: "workouts#listWorkouts"#
+  
+  
+
+  post "/AddSet", to: "workout_sets#create"#
+  get "/Sets/:id", to: "workout_sets#show"
+  # update "/UpdateSet/:id", to: "workout_sets#update"#
+  # delete "/DeleteSet/:id", to: "workout_sets#destroy"#
+  
+  
+  
+
 
 
 

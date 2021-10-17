@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import {useHistory, Link} from "react-router-dom"
-function Home({ user, setUser,routineId, setRoutineId, handleRoutine, routine, setRoutine }) {
+function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
   let history = useHistory();
   function handleRoutine(e) {
     //debugger;
