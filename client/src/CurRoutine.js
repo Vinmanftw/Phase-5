@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {useHistory} from "react-router-dom"
+const HomeDiv = styled('div')`
+max-width:900px;
+margin: 0 auto;`
 const Week = styled("div")`
 display: flex;
 flex-flow: column;
 width: 30%;
 justify-content: center;`
+
 function CurRoutine({ user, setUser,routineId, routine, setRoutine, dayId,setDayId, day ,setDay }) {
   
     // fetch specific Routine home screen 
@@ -17,6 +21,7 @@ function CurRoutine({ user, setUser,routineId, routine, setRoutine, dayId,setDay
     // (thursday)
     // (friday)
     // 
+    console.log(user)
     let history = useHistory();
     function handleDay(e) {
       
@@ -28,7 +33,8 @@ function CurRoutine({ user, setUser,routineId, routine, setRoutine, dayId,setDay
         if (r.ok) {
           r.json().then((day)=>{
             setDay(day);
-            history.push(`/workout`)
+            console.log(day);
+            history.push(`/week/${routine.id}/workout/${day.id}`)
           });
         }
       });
@@ -46,22 +52,36 @@ function CurRoutine({ user, setUser,routineId, routine, setRoutine, dayId,setDay
          </button>))
       }
     }
-    console.log(routine);
-    if(routine){
-      return (
-        <div>
-          <h1>{routine.title}</h1>
-          <Week>
-            {mapDays()}
-          </Week>
-        </div>
-      );
+    if (user){
+      
+      if(routine){
+        return (
+          <HomeDiv>
+            <h1>{routine.title}</h1>
+            <Week>
+              {mapDays()}
+            </Week>
+          </HomeDiv>
+        );
+      }
+      else
+      {
+        return(
+          <HomeDiv>
+             <h1>No Routine Found</h1>
+          </HomeDiv>
+        )
+        
+      }
     }
     else
     {
-      <div>
-        <h1>No Routine Found</h1>
-      </div>
+      return(
+        <HomeDiv>
+          <h1>No user Found</h1>
+        </HomeDiv>
+      )
+      
     }
       
     

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { useHistory } from 'react-router-dom'
 import styled from "styled-components";
 
@@ -18,6 +18,15 @@ function Login({ setUser }) {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // useEffect(() => {
+   
+  //   fetch("/me").then((r) => {
+  //     if (r.ok) {
+  //       r.json().then((user) => {
+  //         setUser(user);})
+  //     }
+  //   });
+  // }, []);
   function handleSubmit(e) {
     e.preventDefault();
     fetch("/login", {
@@ -30,8 +39,10 @@ function Login({ setUser }) {
     .then((r) => {
       if (r.ok) {
         r.json().then((user) => {
+          console.log(user.username);
+          console.log(user.id);
           setUser(user)
-          history.push('/')
+          history.push(`/${user.id}`)
         });
       }
     });

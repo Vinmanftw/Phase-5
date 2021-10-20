@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useParams, useRouteMatch } from "react";
 import { Switch, Route } from "react-router-dom";
 import SignUp from "./SignUp";
 import Login from "./Login";
@@ -15,13 +15,23 @@ function App() {
   const [day,setDay] = useState(null);
   
   useEffect(() => {
-    // auto-login
-    fetch("/me").then((r) => {
+    console.log(window.location.pathname);
+    fetch("/me",{credentials:'include'}).then((r) => {
       if (r.ok) {
-        r.json().then((user) => {setUser(user)});
+        r.json().then((user) => {
+          setUser(user);
+          console.log(user);
+          console.log(routineId);
+          console.log(routine);
+          console.log(dayId);
+          console.log(day);
+          
+        })
       }
     });
-  }, [setRoutineId]);
+
+
+  }, [routineId, dayId]);
   
   
   
@@ -32,13 +42,13 @@ function App() {
       <main>
         {user ? (
           <Switch>
-            <Route path="/week">
+            <Route path={`/${user.id}/week/${routineId}`}>
               <CurRoutine user={user} setUser={setUser} routineId={routineId} routine={routine} setRoutine={setRoutine} dayId={dayId} setDayId={setDayId} day={day} setDay={setDay}/>
             </Route>
-            <Route path="/workout">
-              <CurDay user={user} setUser={setUser} routineId={routineId} routine={routine} setRoutine={setRoutine} day={day} setDay={setDay}/>
+            <Route path={`/week/${routineId}/workout/${day.id}`}>
+              <CurDay user={user} setUser={setUser} routineId={routineId} routine={routine} setRoutine={setRoutine} dayId={dayId} setDayId={setDayId} day={day} setDay={setDay}/>
             </Route>
-            <Route path="/">
+            <Route path={`/${user.id}`}>
               <Home user={user} setUser={setUser} routineId={routineId} setRoutineId={setRoutineId} routine={routine} setRoutine={setRoutine} />
             </Route>
           </Switch>

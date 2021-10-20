@@ -1,5 +1,6 @@
 class WorkoutSetsController < ApplicationController
     before_action :set_params, only: :create
+    # before_action :set_update_params, only: :update
         def create
             set = WorkoutSet.create(set_params)
             if set
@@ -20,8 +21,10 @@ class WorkoutSetsController < ApplicationController
         
         def update 
             set = WorkoutSet.find_by(:id => params[:id])
+            
             if set
                 set.update(set_update_params)
+
                 render json: set
             else
                 render json: {error: "Not authorized"}, status: :unauthorized
@@ -40,7 +43,7 @@ class WorkoutSetsController < ApplicationController
 
         private
         def set_params
-            params.permit(:name, :primary_muscle, :secondary_muscle_1,:secondary_muscle_2, :primary_muscle_3, :primary_muscle_4)
+            params.permit(:reps,:prior_weight)
         end
         def set_update_params
             params.permit(:reps,:prior_weight)

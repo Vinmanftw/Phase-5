@@ -14,14 +14,15 @@ Rails.application.routes.draw do
 
   post "/CreateWorkout", to: "workouts#create"#
   get "/Cards/:id", to: "workouts#showCurWorkouts"
+  get "/UpdateCard/:id", to: "workouts#updateCurWorkouts"
   get "/WorkoutList", to: "workouts#listWorkouts"#
   
   
 
   post "/AddSet", to: "workout_sets#create"#
   get "/Sets/:id", to: "workout_sets#show"
-  # update "/UpdateSet/:id", to: "workout_sets#update"#
-  # delete "/DeleteSet/:id", to: "workout_sets#destroy"#
+  patch "/UpdateSet/:id", to: "workout_sets#update"
+  delete "/DeleteSet/:id", to: "workout_sets#destroy"#
   
   
   

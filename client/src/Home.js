@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
+import {useHistory, Link} from "react-router-dom";
+const HomeDiv = styled('div')`
+max-width:900px;
+margin: 0 auto;`
 
-import {useHistory, Link} from "react-router-dom"
 function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
+  
   let history = useHistory();
+  
+  
   function handleRoutine(e) {
     //debugger;
     const routineId = e.target.value;
     setRoutineId(routineId)
     console.log(e.target.value)
     console.log(routineId)
-    fetch(`/Routine/${e.target.value}`).then((r) => {
+    fetch(`/Routine/${e.target.value}`,{credentials:'include'}).then((r) => {
       if (r.ok) {
         r.json().then((routine)=>{
           setRoutine(routine);
-          history.push(`/week`)
+          history.push(`/${user.id}/week/${routineId}`)
         });
       }
     });
@@ -27,7 +33,7 @@ function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
           "Content-Type": "application/json",
         }
         
-      }).then((r) => {
+      },{credentials:'include'}).then((r) => {
         if (r) {
           r.json().then((user)=>user);
           
@@ -52,13 +58,13 @@ function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
         }
       }
       return (
-        <div>
+        <HomeDiv>
           <h1>Welcome, {user.username} !</h1>
           <h1>Select a routine</h1>
           <div>
             {mapRoutines()}
           </div>
-        </div>
+        </HomeDiv>
       );
     } 
     else{
