@@ -18,7 +18,7 @@ function NavBar({ user, setUser }) {
     <Header>
       <div>
       {user ? (
-        <Link to={`/${user.id}`}>Home</Link>
+        <Link to={`/`}>Home</Link>
       ) : (
         <Link to={`/`}>Home</Link>
       )}

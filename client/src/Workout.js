@@ -44,6 +44,7 @@ gap:1%;
 function Workout({workout, setName, setPrimary, setSecondary, setSecondary2, setSecondary3, setSecondary4, setActive}) {
 
     function handleButton(e){
+        debugger;
         e.preventDefault();
         setActive(true);
         setName(workout.name)
@@ -52,7 +53,6 @@ function Workout({workout, setName, setPrimary, setSecondary, setSecondary2, set
         setSecondary2(workout.secondary_muscle_2)
         setSecondary3(workout.secondary_muscle_3)
         setSecondary4(workout.secondary_muscle_4)
-     
         
     }
     

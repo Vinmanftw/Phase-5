@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useParams } from "react";
 import styled from "styled-components";
 import {useHistory} from "react-router-dom"
 const HomeDiv = styled('div')`
@@ -21,6 +21,7 @@ function CurRoutine({ user, setUser,routineId, routine, setRoutine, dayId,setDay
     // (thursday)
     // (friday)
     // 
+    
     console.log(user)
     let history = useHistory();
     function handleDay(e) {
@@ -34,7 +35,7 @@ function CurRoutine({ user, setUser,routineId, routine, setRoutine, dayId,setDay
           r.json().then((day)=>{
             setDay(day);
             console.log(day);
-            history.push(`/week/${routine.id}/workout/${day.id}`)
+            history.push(`/week/${routineId}/workout/${dayId}/`)
           });
         }
       });

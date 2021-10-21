@@ -59,12 +59,12 @@ color: black;
 border-radius: 5px;
 `
 
-function WorkoutCard({day, workout,active,setActive,name, setName, primary,setPrimary,secondary, setSecondary,secondary2, setSecondary2,secondary3, setSecondary3,secondary4, setSecondary4}) {
+function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName, primary,setPrimary,secondary, setSecondary,secondary2, setSecondary2,secondary3, setSecondary3,secondary4, setSecondary4}) {
     
     const [workoutData, setWorkoutData] = useState(null)
     const [runFetch,setRunFetch] = useState(false)
     const [runUpdate, setRunUpdate] = useState(false)
-    const [curSets,setCurSets]= useState([])
+    
     // when one of those values change for one of the sets then run
     // function onChange(){
     //   //update
@@ -93,21 +93,17 @@ function WorkoutCard({day, workout,active,setActive,name, setName, primary,setPr
 
     // }
 
-    function handleButton(e){
-        e.preventDefault();
-     
-        setRunUpdate(true)
-        setRunFetch(true)
-    }
+    
     if (active === true) {
-      fetch("/CreateMeal", {
+      debugger;
+      fetch("/CreateWorkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name,
-          day_id: day.id,
+          day_id: dayId,
           primary_muscle: primary,
           secondary_muscle_1: secondary,
           secondary_muscle_2: secondary2,
@@ -117,8 +113,9 @@ function WorkoutCard({day, workout,active,setActive,name, setName, primary,setPr
       })
       .then((r) => {
         if (r.ok) {
-          r.json().then((workout) => {
-             
+          r.json().then((newWorkout) => {console.log(newWorkout);
+            setActive(false);
+            
             }
           );
         }

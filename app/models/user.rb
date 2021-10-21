@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
     has_many :routines
+    accepts_nested_attributes_for :routines, allow_destroy: true
 
     
     def monday

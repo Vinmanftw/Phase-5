@@ -11,27 +11,27 @@ class WorkoutsController < ApplicationController
     def listWorkouts
         workout = Workout.all
         if workout
-            render json: workout
+            render json: workout,serializer: WorkoutListSerializer
         else
             render json: {error: 'No Workouts currently available'}, status: :not_found
         end
     end
-    def updateCurWorkouts
-        params[:sets].each do |set|
-            # code to update set
-            # use set hash id to find existing sets
-            set = Set.find(set[:id])
-            set.update(set)
-        end
+    # def updateCurWorkouts
+    #     params[:sets].each do |set|
+    #         # code to update set
+    #         # use set hash id to find existing sets
+    #         set = Set.find(set[:id])
+    #         set.update(set)
+    #     end
 
-        # workout = Workout.find_by(:id => params[:id])
-        # if workout
-        #     workout.update(workout_update_params)
-        #     render json: workout,serializer: CurWorkoutsDataSerializer
-        # else
-        #     render json: {error: "Not authorized"}, status: :unauthorized
-        # end
-    end
+    #     # workout = Workout.find_by(:id => params[:id])
+    #     # if workout
+    #     #     workout.update(workout_update_params)
+    #     #     render json: workout,serializer: CurWorkoutsDataSerializer
+    #     # else
+    #     #     render json: {error: "Not authorized"}, status: :unauthorized
+    #     # end
+    # end
     def showCurWorkouts 
         workout = Workout.find_by(:id => params[:id])
         if workout

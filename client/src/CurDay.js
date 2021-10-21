@@ -14,14 +14,16 @@ flex-flow: column;
 justify-content: center;
 max-width: 900px;
 `
+const HomeDiv = styled('div')`
+max-width:900px;
+margin: 0 auto;`
 
 
 
 
 
 
-
-function CurDay({ user, setUser,routineId, routine, setRoutine, day, setDay }) {
+function CurDay({ user, setUser,routineId, routine, setRoutine, day, setDay,dayId, setDayId}) {
   
   const [active,setActive] = useState(false)
   const [name,setName] = useState(null)
@@ -30,11 +32,12 @@ function CurDay({ user, setUser,routineId, routine, setRoutine, day, setDay }) {
   const [secondary2, setSecondary2] = useState(null)
   const [secondary3, setSecondary3] = useState(null)
   const [secondary4, setSecondary4] = useState(null)
+  
 
     function mapWorkouts(){
       if (day.workouts){
         return day.workouts.map((workout) => (
-        <WorkoutCard workout={workout} active={active}  setName={setName} setPrimary={setPrimary} setSecondary={setSecondary} setSecondary2={setSecondary2} setSecondary3={setSecondary3} setSecondary4={setSecondary4}  name={name} primary={primary} secondary={secondary} secondary2={secondary2} secondary3={secondary3} secondary4={secondary4}setActive={setActive} key={workout.id}/>
+        <WorkoutCard workout={workout} active={active} dayId={dayId} setDayId={setDayId} setName={setName} setPrimary={setPrimary} setSecondary={setSecondary} setSecondary2={setSecondary2} setSecondary3={setSecondary3} setSecondary4={setSecondary4}  name={name} primary={primary} secondary={secondary} secondary2={secondary2} secondary3={secondary3} secondary4={secondary4}setActive={setActive} key={workout.id}/>
         ))
       }
     }
@@ -50,24 +53,24 @@ function CurDay({ user, setUser,routineId, routine, setRoutine, day, setDay }) {
               {mapWorkouts()}
             </CardContainer>
           </div>
-          <WorkoutList active={active} setName={setName} setPrimary={setPrimary} setSecondary={setSecondary} setSecondary2={setSecondary2} setSecondary3={setSecondary3} setSecondary4={setSecondary4}setActive={setActive}/>
+          <WorkoutList active={active} dayId={dayId} setDayId={setDayId} setName={setName} setPrimary={setPrimary} setSecondary={setSecondary} setSecondary2={setSecondary2} setSecondary3={setSecondary3} setSecondary4={setSecondary4}  name={name} primary={primary} secondary={secondary} secondary2={secondary2} secondary3={secondary3} secondary4={secondary4}setActive={setActive}/>
         </View>
         );
       }
       else{
         return(
-          <div>
+          <HomeDiv>
             <h1>No Routine Found</h1>
-          </div>
+          </HomeDiv>
       )
       }
     }
     else
     {
       return (
-        <div>
+        <HomeDiv>
           <h1>No Routine Found</h1>
-        </div>
+        </HomeDiv>
       )     
     }    
 }

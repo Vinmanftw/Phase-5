@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect, useRouteMatch,useParams } from "react";
 import styled from "styled-components";
 import {useHistory, Link} from "react-router-dom";
 const HomeDiv = styled('div')`
@@ -20,25 +20,14 @@ function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
       if (r.ok) {
         r.json().then((routine)=>{
           setRoutine(routine);
-          history.push(`/${user.id}/week/${routineId}`)
+          history.push(`/week/${routineId}/`)
         });
       }
     });
   }
   
     if (user){
-      fetch("/me", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        }
-        
-      },{credentials:'include'}).then((r) => {
-        if (r) {
-          r.json().then((user)=>user);
-          
-        }
-      });
+      
       
         
       
@@ -68,7 +57,12 @@ function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
       );
     } 
     else{
-      return <h1>Please Login or Sign Up</h1>;
+      return (
+        <HomeDiv>
+          <h1>Please Login or Sign Up</h1>
+        </HomeDiv>
+      
+      );
     }
   
 
