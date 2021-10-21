@@ -25,24 +25,19 @@ margin: 0 auto;`
 
 function CurDay({ user, setUser,routineId, routine, setRoutine, day, setDay,dayId, setDayId}) {
   
-  const [active,setActive] = useState(false)
-  const [name,setName] = useState(null)
-  const [primary,setPrimary] = useState(null)
-  const [secondary, setSecondary] = useState(null)
-  const [secondary2, setSecondary2] = useState(null)
-  const [secondary3, setSecondary3] = useState(null)
-  const [secondary4, setSecondary4] = useState(null)
+  
+  
   
 
     function mapWorkouts(){
       if (day.workouts){
         return day.workouts.map((workout) => (
-        <WorkoutCard workout={workout} active={active} dayId={dayId} setDayId={setDayId} setName={setName} setPrimary={setPrimary} setSecondary={setSecondary} setSecondary2={setSecondary2} setSecondary3={setSecondary3} setSecondary4={setSecondary4}  name={name} primary={primary} secondary={secondary} secondary2={secondary2} secondary3={secondary3} secondary4={secondary4}setActive={setActive} key={workout.id}/>
+        <WorkoutCard workout={workout} dayId={dayId} key={workout.id}/>
         ))
       }
     }
     
-    console.log(day);
+    
     if(user){
       if(routine){
         return (
@@ -53,7 +48,7 @@ function CurDay({ user, setUser,routineId, routine, setRoutine, day, setDay,dayI
               {mapWorkouts()}
             </CardContainer>
           </div>
-          <WorkoutList active={active} dayId={dayId} setDayId={setDayId} setName={setName} setPrimary={setPrimary} setSecondary={setSecondary} setSecondary2={setSecondary2} setSecondary3={setSecondary3} setSecondary4={setSecondary4}  name={name} primary={primary} secondary={secondary} secondary2={secondary2} secondary3={secondary3} secondary4={secondary4}setActive={setActive}/>
+          <WorkoutList dayId={dayId}/>
         </View>
         );
       }

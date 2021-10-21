@@ -94,39 +94,13 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
     // }
 
     
-    if (active === true) {
-      debugger;
-      fetch("/CreateWorkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          day_id: dayId,
-          primary_muscle: primary,
-          secondary_muscle_1: secondary,
-          secondary_muscle_2: secondary2,
-          secondary_muscle_3: secondary3,
-          secondary_muscle_4:secondary4
-        }),
-      })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((newWorkout) => {console.log(newWorkout);
-            setActive(false);
-            
-            }
-          );
-        }
-      });
-    }
+   
     if(runFetch === false){
         fetch(`/Cards/${workout.id}`,{credentials:'include'}).then((r) => {
             if (r.ok) {
               r.json().then((workout)=>{
                 setWorkoutData(workout);
-                console.log(workout);
+                // console.log(workout);
                 setRunFetch(true);
               });
             }

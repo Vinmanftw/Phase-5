@@ -41,19 +41,49 @@ margin-left: 1%;
 width: 99%;
 gap:1%;
 `
-function Workout({workout, setName, setPrimary, setSecondary, setSecondary2, setSecondary3, setSecondary4, setActive}) {
+function Workout({workout, dayId}) {
+    const [name,setName] = useState(workout.name)
+    const [primary,setPrimary] = useState(workout.primary_muscle)
+    const [secondary, setSecondary] = useState(workout.secondary_muscle_1)
+    const [secondary2, setSecondary2] = useState(workout.secondary_muscle_2)
+    const [secondary3, setSecondary3] = useState(workout.secondary_muscle_3)
+    const [secondary4, setSecondary4] = useState(workout.secondary_muscle_4)
+
 
     function handleButton(e){
         debugger;
         e.preventDefault();
-        setActive(true);
-        setName(workout.name)
-        setPrimary(workout.primary_muscle)
-        setSecondary(workout.secondary_muscle_1)
-        setSecondary2(workout.secondary_muscle_2)
-        setSecondary3(workout.secondary_muscle_3)
-        setSecondary4(workout.secondary_muscle_4)
-        
+        setName(name);
+        setPrimary(primary);
+        setSecondary(secondary);
+        setSecondary2(secondary2);
+        setSecondary3(secondary3);
+        setSecondary4(secondary4);
+        fetch("/CreateWorkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            day_id: dayId,
+            primary_muscle: primary,
+            secondary_muscle_1: secondary,
+            secondary_muscle_2: secondary2,
+            secondary_muscle_3: secondary3,
+            secondary_muscle_4:secondary4
+          }),
+        })
+        .then((r) => {
+          if (r.ok) {
+            r.json().then((newWorkout) => {console.log(newWorkout);
+              
+              
+            }
+            );
+          }
+        });
+  
     }
     
     

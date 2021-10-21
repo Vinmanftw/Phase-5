@@ -2,6 +2,7 @@ class WorkoutsController < ApplicationController
     before_action :workout_params, only: :create
     def create
         workout = Workout.create(workout_params)
+        workout.save(validate: false)
         if workout
             render json: workout,status: :created
         else
@@ -11,7 +12,7 @@ class WorkoutsController < ApplicationController
     def listWorkouts
         workout = Workout.all
         if workout
-            render json: workout,serializer: WorkoutListSerializer
+            render json: workout
         else
             render json: {error: 'No Workouts currently available'}, status: :not_found
         end
@@ -34,6 +35,7 @@ class WorkoutsController < ApplicationController
     # end
     def showCurWorkouts 
         workout = Workout.find_by(:id => params[:id])
+        workout.save(validate: false)
         if workout
             render json: workout,serializer: CurWorkoutsDataSerializer
         else

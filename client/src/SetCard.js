@@ -174,7 +174,7 @@ function SetCard({ set, runUpdate, setRunUpdate, workout, handleUpdate }) {
         if (r.ok) {
           r.json().then((set)=>{
             setCurSet(set);
-            console.log(set);
+            // console.log(set);
             setPrior(set.prior_weight);
             setReps(set.reps)
           });
