@@ -43,7 +43,7 @@ class WorkoutSetsController < ApplicationController
 
         private
         def set_params
-            params.permit(:reps,:prior_weight)
+            params.permit(:reps,:prior_weight, :workout_id)
         end
         def set_update_params
             params.permit(:reps,:prior_weight)

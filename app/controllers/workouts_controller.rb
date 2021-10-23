@@ -42,12 +42,27 @@ class WorkoutsController < ApplicationController
             render json: {error: "Not authorized"}, status: :unauthorized
         end
     end
+
+    def updateCardData
+        workout = Workout.find_by(:id => params[:id])
+        if workout.update(nested_workout_params)
+            render json: workout,serializer: WorkoutDataSerializer
+        else
+            render json: {error: workout.errors.full_messages},status: :unprocessable_entity
+        end
+    end
+
     private
     def workout_params
-        params.permit(:name, :primary_muscle, :secondary_muscle_1,:secondary_muscle_2, :secondary_muscle_3, :secondary_muscle_4,:day_id)
+        params.permit(:name, :primary_muscle, :secondary_muscle_1,
+            :secondary_muscle_2, :secondary_muscle_3, :secondary_muscle_4,:day_id)
     end
     def workout_update_params
         params.permit(:prior_weight, :reps)
     end
-    
+    def nested_workout_params
+        params.requie(:workout).permit(:id, :name, :primary_muscle, 
+        :secondary_muscle_1, :secondary_muscle_2, :secondary_muscle_3, 
+        :secondary_muscle_4, sets_attributes: %i[id prior_weight reps _destroy])
+    end
 end

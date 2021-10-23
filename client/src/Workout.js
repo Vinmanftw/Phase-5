@@ -5,41 +5,58 @@ import styled from 'styled-components'
 
 const H1 = styled("h1")`
 
-font-size:20px;
-border:1px black solid;
+font-size:13px;
+
 border-radius: 5px;
-width:100%;
+
 padding:.5%;
 `
 const VideoDiv = styled("div")`
 width:40%;
 padding:.5%;
+height: 150px;
 `
 const TitleDiv = styled("div")`
-width:40%;
+width:70%;
 padding:.5%;
+`
+const PrimaryMuscleDiv = styled("div")`
+width:30%;
+padding:.5%;
+display: flex;
+flex-flow: row;
+justify-content: flex-end;
 `
 
 const Card = styled("div")`
 display: flex;
 flex-flow: column;
-justify-content: center;
+justify-content: flex-start;
 border: 1px black solid;
 border-radius: 20px;
 background-color: #404040;
-margin-bottom: 2%;`
+margin-bottom: 2%;
+padding-bottom: 2%;
+width:100%;
+`
 const TopRow = styled("div")`
 display: flex;
 flex-flow: row;
-width:99%;
+width:98%;
 margin-left: 1%;
 `
+
 const SetsRow = styled("div")`
 display: flex;
 flex-flow: row;
 margin-left: 1%;
 width: 99%;
 gap:1%;
+`
+const Btn = styled("button")`
+width: 50%;
+margin-left:25%;
+
 `
 function Workout({workout, dayId}) {
     const [name,setName] = useState(workout.name)
@@ -48,17 +65,19 @@ function Workout({workout, dayId}) {
     const [secondary2, setSecondary2] = useState(workout.secondary_muscle_2)
     const [secondary3, setSecondary3] = useState(workout.secondary_muscle_3)
     const [secondary4, setSecondary4] = useState(workout.secondary_muscle_4)
+    const [workoutId, setWorkoutId] = useState(null)
 
 
     function handleButton(e){
-        debugger;
-        e.preventDefault();
+        
         setName(name);
         setPrimary(primary);
         setSecondary(secondary);
         setSecondary2(secondary2);
         setSecondary3(secondary3);
         setSecondary4(secondary4);
+        
+        
         fetch("/CreateWorkout", {
           method: "POST",
           headers: {
@@ -77,13 +96,34 @@ function Workout({workout, dayId}) {
         .then((r) => {
           if (r.ok) {
             r.json().then((newWorkout) => {console.log(newWorkout);
+              setWorkoutId(newWorkout.id);
+              console.log(newWorkout.id);
+              console.log(workoutId);
               
               
             }
             );
           }
         });
-  
+        fetch("/AddSet", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            workout_id: workoutId,
+            
+          }),
+        })
+        .then((r) => {
+          if (r.ok) {
+            r.json().then((newSet) => {console.log(newSet);
+              
+              
+            }
+            );
+          }
+        });
     }
     
     
@@ -97,17 +137,17 @@ function Workout({workout, dayId}) {
             <TopRow>
              <TitleDiv>
                 <H1>{workout.name}</H1>
-                <H1>{workout.primary_muscle}</H1>
              </TitleDiv>
-             
-             
+             <PrimaryMuscleDiv>
+              <H1>{workout.primary_muscle} Workout</H1>
+             </PrimaryMuscleDiv>
             </TopRow>
             <VideoDiv>
                  
-             </VideoDiv>
-            <button onClick={handleButton} >
+            </VideoDiv>
+            <Btn onClick={handleButton} >
              Add
-            </button>
+            </Btn>
             
           </Card>  
         )

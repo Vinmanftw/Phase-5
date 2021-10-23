@@ -8,6 +8,11 @@ display: flex;
 flex-flow: column;
 
 `
+const AddOrDelete = styled("div")`
+display: flex;
+flex-flow: column;
+justify-content:center;
+`
 const H1 = styled("h1")`
 
 font-size:20px;
@@ -87,15 +92,60 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
     //     if (r.ok) {
     //       r.json().then((sets)=>(console.log(sets)));
     //     }
-    //   });
-      
-
-
+    //   });      
     // }
+    function handleAddSet(e){
+      
+      fetch("/AddSet", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          workout_id: workout.id, 
+          prior_weight: 0,
+          reps: 0
+        }),
+      })
+      .then((r) => {
+        if (r.ok) {
+          r.json().then((newSet) => {console.log(newSet);
+            
+            
+          }
+          );
+        }
+      });
+      
+  
+    }
+    function handleDeleteSet(e){
+      fetch(`/UpdateCardData/${workout.id}`, {
+        method: "Patch",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          workout_id: workout.id,
+
+        }),
+      })
+      .then((r) => {
+        if (r.ok) {
+          r.json().then((newSet) => {console.log(newSet);
+            
+            
+          }
+          );
+        }
+      });
+      
+  
+    }
 
     
    
-    if(runFetch === false){
+    useEffect(() => {
         fetch(`/Cards/${workout.id}`,{credentials:'include'}).then((r) => {
             if (r.ok) {
               r.json().then((workout)=>{
@@ -105,8 +155,8 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
               });
             }
         });
-    }
     
+    },[workout.workout_sets]);
     
     if(workoutData){
         function mapSets(){
@@ -129,8 +179,13 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
              <VideoDiv></VideoDiv>
              
             </TopRow>
+            
             <SetsRow>
               {mapSets()}
+              <AddOrDelete>
+                <button onClick={handleAddSet}>+</button>
+                <button onClick={handleDeleteSet}>-</button>
+              </AddOrDelete>
             </SetsRow>
             
           </Card>  

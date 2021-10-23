@@ -126,18 +126,35 @@ border-radius: 5px;
 
 function SetCard({ set, runUpdate, setRunUpdate, workout, handleUpdate }) {
     const [prior, setPrior] = useState(set.prior_weight);
-    const [now, setNow] = useState(0.0);
+    const [now, setNow] = useState(0);
     const [runFetch, setRunFetch] = useState(true);
     const [reps, setReps] = useState(set.reps);
     const [curSet,setCurSet] = useState(set);
 
     function handleConfirm(e){
       e.preventDefault();
+      debugger;
       
       
-      setPrior(now);
       
-      setReps(reps);
+      console.log(now);
+      if(now !== 0){
+        setPrior(now)
+      }
+      
+      setNow(0)
+      // fetch(`/Sets/${curSet.id}`,{credentials:'include'}).then((r) => {
+      //   if (r.ok) {
+      //     r.json().then((set)=>{
+      //       setCurSet(set);
+      //       console.log(set);
+      //       setPrior(set.prior_weight);
+      //     });
+      //   }
+      // });
+      
+    }
+    useEffect(() =>{
       fetch(`/UpdateSet/${curSet.id}`, {
         method: "PATCH",
         headers: {
@@ -152,35 +169,27 @@ function SetCard({ set, runUpdate, setRunUpdate, workout, handleUpdate }) {
         if (r.ok) {
           r.json().then((set) => {
             console.log(set)
-            
-            
-            
-          });
-        }
-      });
-      fetch(`/Sets/${curSet.id}`,{credentials:'include'}).then((r) => {
-        if (r.ok) {
-          r.json().then((set)=>{
             setCurSet(set);
-            console.log(set);
-            setPrior(set.prior_weight);
+            
+            
+            
           });
         }
       });
-      
-    }
+    },[prior])
     if(runFetch){
       fetch(`/Sets/${set.id}`,{credentials:'include'}).then((r) => {
         if (r.ok) {
           r.json().then((set)=>{
             setCurSet(set);
             // console.log(set);
-            setPrior(set.prior_weight);
-            setReps(set.reps)
+            // setPrior(set.prior_weight);
+            // setReps(set.reps)
+            setRunFetch(false);
           });
         }
       });
-      setRunFetch(false);
+      
     }
 
     
@@ -192,7 +201,7 @@ function SetCard({ set, runUpdate, setRunUpdate, workout, handleUpdate }) {
     return (
           <SetReps onSubmit={handleConfirm}>
             <Set>
-              <PriorDiv><Prior>{set.prior_weight}</Prior><Metric>lbs</Metric></PriorDiv>
+              <PriorDiv><Prior>{prior}</Prior><Metric>lbs</Metric></PriorDiv>
               <NowDiv>
                 <Now 
                   type="integer"
