@@ -113,12 +113,25 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
         .then((r) => {
           if (r.ok) {
             r.json().then((newSet) => {console.log(newSet);
+              fetch(`/GetCardData/${workout.id}`,{credentials:'include'}).then((r) => {
+                if (r.ok) {
+                  r.json().then((workout)=>{
+                    setWorkoutData(workout);
+                    // console.log(workout);
+                    console.log(workout.sets.length);
+                    setCurArrayLength(workout.sets.length);
+                    setRunFetch(true);
+                  });
+                }
+              });
+            
             }
             );
           }
         });
       }
     }
+
     function handleDeleteSet(e){
       e.preventDefault();
       fetch(`/GetCardData/${workout.id}`)
@@ -144,7 +157,19 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
           
         });
         setIdToDelete(null);
+        
       }
+      fetch(`/GetCardData/${workout.id}`,{credentials:'include'}).then((r) => {
+        if (r.ok) {
+          r.json().then((workout)=>{
+            setWorkoutData(workout);
+            // console.log(workout);
+            console.log(workout.sets.length);
+            setCurArrayLength(workout.sets.length);
+            setRunFetch(true);
+          });
+        }
+      });
     },[idToDelete]);
     
    
@@ -160,7 +185,6 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
               });
             }
         });
-    
     },[workout.sets]);
     
     if(workoutData){

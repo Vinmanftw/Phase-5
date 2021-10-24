@@ -69,7 +69,7 @@ function Workout({workout, dayId}) {
 
 
     function handleButton(e){
-        
+        e.preventDefault();
         setName(name);
         setPrimary(primary);
         setSecondary(secondary);
@@ -99,31 +99,30 @@ function Workout({workout, dayId}) {
               setWorkoutId(newWorkout.id);
               console.log(newWorkout.id);
               console.log(workoutId);
-              
-              
-            }
-            );
-          }
-        });
-        fetch("/AddSet", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            workout_id: workoutId,
-            
-          }),
-        })
-        .then((r) => {
-          if (r.ok) {
-            r.json().then((newSet) => {console.log(newSet);
-              
+              fetch("/AddSet", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  workout_id: newWorkout.id, 
+                  prior_weight: 0,
+                  reps: 0
+                }),
+              })
+              .then((r) => {
+                if (r.ok) {
+                  r.json().then((newSet) => {console.log(newSet);
+                    
+                  });
+                }
+              });
               
             }
             );
           }
         });
+        
     }
     
     
