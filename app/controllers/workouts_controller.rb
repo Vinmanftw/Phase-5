@@ -51,6 +51,14 @@ class WorkoutsController < ApplicationController
             render json: {error: workout.errors.full_messages},status: :unprocessable_entity
         end
     end
+    def getCardData
+        workout = Workout.find_by(:id => params[:id])
+        if workout
+            render json: workout,serializer: WorkoutDataSerializer
+        else
+            render json: {error: workout.errors.full_messages},status: :unprocessable_entity
+        end
+    end
 
     private
     def workout_params
@@ -61,7 +69,7 @@ class WorkoutsController < ApplicationController
         params.permit(:prior_weight, :reps)
     end
     def nested_workout_params
-        params.requie(:workout).permit(:id, :name, :primary_muscle, 
+        params.require(:workout).permit(:name, :primary_muscle, 
         :secondary_muscle_1, :secondary_muscle_2, :secondary_muscle_3, 
         :secondary_muscle_4, sets_attributes: %i[id prior_weight reps _destroy])
     end

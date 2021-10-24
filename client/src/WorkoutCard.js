@@ -69,6 +69,7 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
     const [workoutData, setWorkoutData] = useState(null)
     const [runFetch,setRunFetch] = useState(false)
     const [runUpdate, setRunUpdate] = useState(false)
+    const [idToDelete, setIdToDelete] = useState(null)
     
     // when one of those values change for one of the sets then run
     // function onChange(){
@@ -120,29 +121,37 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
   
     }
     function handleDeleteSet(e){
-      fetch(`/UpdateCardData/${workout.id}`, {
-        method: "Patch",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          workout_id: workout.id,
-
-        }),
-      })
+      e.preventDefault();
+      fetch(`/GetCardData/${workout.id}`)
       .then((r) => {
         if (r.ok) {
           r.json().then((newSet) => {console.log(newSet);
+            console.log(newSet.sets);
+            console.log(newSet.sets[newSet.sets.length - 1].id);
+            if(newSet.sets.length > 1){
+              setIdToDelete(newSet.sets[newSet.sets.length - 1].id)
+            }
             
-            
+            console.log(idToDelete);
           }
           );
         }
       });
+      console.log(idToDelete);
       
   
     }
-
+    console.log(idToDelete);
+    
+    useEffect(() => {
+      if(idToDelete !== null){
+        fetch(`/DeleteSet/${idToDelete}`, {
+          method: "DELETE",
+          
+        });
+        setIdToDelete(null);
+      }
+    },[idToDelete]);
     
    
     useEffect(() => {
