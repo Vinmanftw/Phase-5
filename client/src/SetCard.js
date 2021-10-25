@@ -111,50 +111,36 @@ margin:auto;
 color: #13cbd2;
 `
 const UpdateButton = styled("button")`
-margin:auto;
-font-size:12px;
-
-text-align: center;
-
+font-size: 12px;
+margin-top:9%;
+margin-bottom:9%;
+width:98%;
 border:1px black solid;
 background-color: green;
 color: black;
 border-radius: 5px;
+aspect-ratio: 25/5;
 `
 
 
 
-function SetCard({ set, runUpdate, setRunUpdate, workout, handleUpdate }) {
+function SetCard({ set, updateSets,setUpdateSets,runUpdate, setRunUpdate, workout, handleUpdate }) {
     const [prior, setPrior] = useState(set.prior_weight);
-    const [now, setNow] = useState(0);
+    const [now, setNow] = useState(set.now_weight);
     const [runFetch, setRunFetch] = useState(true);
     const [reps, setReps] = useState(set.reps);
     const [curSet,setCurSet] = useState(set);
-
+    
     function handleConfirm(e){
       e.preventDefault();
-      debugger;
-      
-      
-      
       console.log(now);
       if(now !== 0){
         setPrior(now)
       }
-      
       setNow(0)
-      // fetch(`/Sets/${curSet.id}`,{credentials:'include'}).then((r) => {
-      //   if (r.ok) {
-      //     r.json().then((set)=>{
-      //       setCurSet(set);
-      //       console.log(set);
-      //       setPrior(set.prior_weight);
-      //     });
-      //   }
-      // });
-      
     }
     useEffect(() =>{
+      
       fetch(`/UpdateSet/${curSet.id}`, {
         method: "PATCH",
         headers: {
@@ -162,6 +148,7 @@ function SetCard({ set, runUpdate, setRunUpdate, workout, handleUpdate }) {
         },
         body: JSON.stringify({
           prior_weight:prior,
+          now_weight:now,
           reps
         }),
       })
@@ -200,6 +187,9 @@ function SetCard({ set, runUpdate, setRunUpdate, workout, handleUpdate }) {
     
     return (
           <SetReps onSubmit={handleConfirm}>
+            
+              <UpdateButton type="submit" >Update</UpdateButton>
+           
             <Set>
               <PriorDiv><Prior>{prior}</Prior><Metric>lbs</Metric></PriorDiv>
               <NowDiv>
@@ -226,7 +216,7 @@ function SetCard({ set, runUpdate, setRunUpdate, workout, handleUpdate }) {
                
               <MetricReps>reps</MetricReps>
             </RepsDiv>
-            <UpdateButton type="submit" >Update</UpdateButton>
+            
           </SetReps>
   )
 }

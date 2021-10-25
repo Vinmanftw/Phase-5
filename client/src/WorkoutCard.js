@@ -89,7 +89,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
     const [runUpdate, setRunUpdate] = useState(false)
     const [idToDelete, setIdToDelete] = useState(null)
     const [curArrayLength, setCurArrayLength] = useState(null)
-    const [updateSets, setUpdateSets] = useState(null)
+    const [updateSets, setUpdateSets] = useState(false)
     
     // when one of those values change for one of the sets then run
     // function onChange(){
@@ -126,6 +126,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
           body: JSON.stringify({
             workout_id: workout.id, 
             prior_weight: 0,
+            now_weight: 0,
             reps: 0
           }),
         })
@@ -167,11 +168,25 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
         }
       });
     }
-    function handleUpdateCard(e){
-      e.preventDefault();
-      setUpdateSets(true);
+    // function handleUpdateCard(e){
+    //   e.preventDefault();
+      
+    // }
+    useEffect(() => {
+      fetch(`/GetCardData/${workout.id}`,{credentials:'include'}).then((r) => {
+        if (r.ok) {
+          r.json().then((workout)=>{
+            setWorkoutData(workout);
+            // console.log(workout);
+            
 
-    }
+            console.log(workout.sets.length);
+            setCurArrayLength(workout.sets.length);
+            setRunFetch(true);
+          });
+        }
+      });
+    },[])
     function handleDeleteCard(e){
       e.preventDefault();
       console.log(workout.id)
@@ -259,6 +274,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
       });
     },[idToDelete]);
     
+    
    
     useEffect(() => {
       if(workoutIdToDelete !== null){
@@ -285,7 +301,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
                   // take set object and turn it into =>
                   // { id: set.id , current_weight: set.prior_weight, prior_weight: 0, previous reps: set.reps}
                     
-                <SetCard set={set} workout={workout} runUpdate={runUpdate} setRunUpdate={setRunUpdate}  key={set.id}/>
+                <SetCard set={set}  workout={workout} runUpdate={runUpdate} setRunUpdate={setRunUpdate}  key={set.id}/>
                 ))
             }    
         }
@@ -298,7 +314,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
              <VideoDiv></VideoDiv>
              <UpdateDeleteDiv>
                <DeleteButton onClick={handleDeleteCard}>Delete</DeleteButton>
-               <UpdateButton onClick={handleUpdateCard}>Update</UpdateButton>
+               
              </UpdateDeleteDiv>
             </TopRow>
             

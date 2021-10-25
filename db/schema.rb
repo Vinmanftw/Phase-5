@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2021_10_14_144358) do
   create_table "workout_sets", force: :cascade do |t|
     t.integer "reps"
     t.integer "prior_weight"
+    t.integer "now_weight"
     t.bigint "workout_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -27,14 +27,14 @@ Workout.create(name: "Incline Dumbbell Chestpress",primary_muscle: "Chest", day_
 Workout.create(name: "Rotating Dumbbell Rotating Chest Press",primary_muscle: "Chest" , day_id: tuesday.id)
 Workout.create(name: "Decline Dumbbell Fly To Press",primary_muscle: "Chest",day_id: tuesday.id)
 puts 'seeding sets'
-WorkoutSet.create(reps: 15, prior_weight: 30, workout_id: 1)
-WorkoutSet.create(reps: 15, prior_weight: 30, workout_id: 1)
-WorkoutSet.create(reps: 15, prior_weight: 30, workout_id: 1)
+WorkoutSet.create(reps: 15, prior_weight: 30,now_weight:0, workout_id: 1)
+WorkoutSet.create(reps: 15, prior_weight: 30,now_weight:0, workout_id: 1)
+WorkoutSet.create(reps: 15, prior_weight: 30,now_weight:0, workout_id: 1)
 
-WorkoutSet.create(reps: 15, prior_weight: 40, workout_id: 2)
-WorkoutSet.create(reps: 12, prior_weight: 45, workout_id: 2)
-WorkoutSet.create(reps: 8, prior_weight: 50, workout_id: 2)
-WorkoutSet.create(reps: 8, prior_weight: 45, workout_id: 2)
+WorkoutSet.create(reps: 15, prior_weight: 40,now_weight:0, workout_id: 2)
+WorkoutSet.create(reps: 12, prior_weight: 45,now_weight:0, workout_id: 2)
+WorkoutSet.create(reps: 8, prior_weight: 50,now_weight:0, workout_id: 2)
+WorkoutSet.create(reps: 8, prior_weight: 45,now_weight:0, workout_id: 2)
 
 
 puts'seeding complete'

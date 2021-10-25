@@ -42,7 +42,7 @@ function Login({ setUser }) {
           console.log(user.username);
           console.log(user.id);
           setUser(user)
-          history.push(`/${user.id}`)
+          history.push(`/`)
         });
       }
     });

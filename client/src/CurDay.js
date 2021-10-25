@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {useHistory, Link} from "react-router-dom"
+
 import WorkoutCard from "./WorkoutCard"
 import WorkoutList from "./WorkoutList"
+import Form from "./Form"
 const View = styled("div")`
 display: flex;
 flex-flow: row;
@@ -25,7 +26,7 @@ const UsersWorkouts = styled("div")`
 display: flex;
 flex-flow: column;
 justify-content: flex-start;
-max-width: 900px;
+width: 900px;
 `
 const SelectCardContainer = styled('div')`
 display: flex;
@@ -55,6 +56,8 @@ function CurDay({ user, setUser,routineId, routine, setRoutine, day, setDay,dayI
   const [workoutArrayLength, setWorkoutArrayLength] = useState(day.workouts.length)
   const [curDay, setCurDay] = useState(day);
   const [workoutIdToDelete, setWorkoutIdToDelete] = useState(null);
+  const [toggleForm, setToggleForm] = useState(false);
+  const [workouts, setWorkouts] = useState([]);
     useEffect(()=>{
       if(workoutArrayLength !== curDay.workouts.length) {
         fetch(`/GetDayData/${day.id}`,{credentials:'include'}).then((r) => {
@@ -109,6 +112,16 @@ function CurDay({ user, setUser,routineId, routine, setRoutine, day, setDay,dayI
               <CardContainer>
                 {mapWorkouts()}
               </CardContainer>
+              {toggleForm?
+              <div>
+                <Form workouts={workouts} setWorkouts={setWorkouts} dayId={dayId} day={day} curDay={curDay} setCurDay={setCurDay} workoutArrayLength={workoutArrayLength} setWorkoutArrayLength={setWorkoutArrayLength} setToggleForm={setToggleForm} toggleForm={toggleForm}/>
+              </div>
+              :
+              <div>
+                <h2>Add workouts already added from the right or add a </h2>
+                <button onClick={()=>{setToggleForm(true)}}>a new workout</button>
+              </div>}
+              
                 
               
             </UsersWorkouts>
@@ -117,7 +130,7 @@ function CurDay({ user, setUser,routineId, routine, setRoutine, day, setDay,dayI
               
               
               <SelectCardContainer>
-                <WorkoutList dayId={dayId} day={day} curDay={curDay} setCurDay={setCurDay} workoutArrayLength={workoutArrayLength}setWorkoutArrayLength={setWorkoutArrayLength} setLoadCards={setLoadCards}/>
+                <WorkoutList workouts={workouts} setWorkouts={setWorkouts} dayId={dayId} day={day} curDay={curDay} setCurDay={setCurDay} workoutArrayLength={workoutArrayLength}setWorkoutArrayLength={setWorkoutArrayLength} setLoadCards={setLoadCards}/>
               </SelectCardContainer>
               
             </WorkoutsToChoose>

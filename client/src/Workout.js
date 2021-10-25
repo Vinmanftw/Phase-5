@@ -110,6 +110,7 @@ function Workout({workout, day,curDay,setCurDay,dayId, setLoadCards,workoutArray
                 body: JSON.stringify({
                   workout_id: newWorkout.id, 
                   prior_weight: 0,
+                  now_weight: 0,
                   reps: 0
                 }),
               })

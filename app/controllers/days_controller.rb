@@ -42,6 +42,6 @@ class DaysController < ApplicationController
         params.require(:day).permit(:id, :dotw, :title, :routine_id, 
         workouts_attributes: [:id, :name, :day_id, :primary_muscle, 
         :secondary_muscle_1,:secondary_muscle_2, :secondary_muscle_3,
-        :secondary_muscle_4, sets_attributes: %i[id prior_weight reps]])
+        :secondary_muscle_4, sets_attributes: %i[id prior_weight now_weight reps]])
     end
 end
