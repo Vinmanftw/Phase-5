@@ -40,8 +40,26 @@ function CurRoutine({ user, setUser,routineId, routine, setRoutine, dayId,setDay
         }
       });
     }
+    
     function mapDays(){
-
+      const sorter = {
+        // "sunday": 0, // << if sunday is first day of week
+        "monday": 1,
+        "tuesday": 2,
+        "wednesday": 3,
+        "thursday": 4,
+        "friday": 5,
+        "saturday": 6,
+        "sunday": 7
+      }
+      routine.days.sort(function sortByDay(a, b) {
+        let day1 = a.dotw.toLowerCase();
+        let day2 = b.dotw.toLowerCase();
+        return sorter[day1] - sorter[day2];
+      });
+      
+      
+      // console.log(routine.days.sort((a, b) => parseFloat(a.price) - parseFloat(b.price)))
       if (routine.days){
         return routine.days.map((day) => (
         <button 

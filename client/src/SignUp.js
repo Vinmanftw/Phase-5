@@ -44,6 +44,160 @@ function SignUp({ setUser }) {
       if (r.ok) {
         r.json().then((user) => {
           setUser(user)
+          fetch('/CreateRoutine', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title: `${user.username} Routine`,
+              user_id: user.id
+            }),
+          })   
+          .then((r) => {
+            if (r.ok) {
+              r.json().then((Routine) => {
+                  console.log(Routine)
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Monday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Tuesday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Wednesday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Thursday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Friday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Saturday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Sunday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch("/me",{credentials:'include'}).then((r) => {
+                    if (r.ok) {
+                      r.json().then((user) => {
+                        setUser(user);
+                        
+                        
+                      })
+                    }
+                  });
+                 //////////////////////////////////////////////////////////////////////////////////////////////// 
+              });
+            }
+          });
+          
           history.push('/')
         });
       }

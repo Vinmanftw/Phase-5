@@ -1,10 +1,17 @@
 import React, { useState,useEffect, useRouteMatch,useParams } from "react";
 import styled from "styled-components";
 import {useHistory, Link} from "react-router-dom";
+const Column = styled("div")`
+display: flex;
+flex-flow: column;
+justify-content:flex-start;
+gap:1%;`
+
 const HomeDiv = styled('div')`
 max-width:900px;
 margin: 0 auto;`
-
+const AddButton = styled('button')`
+width: 20%;`
 function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
   
   let history = useHistory();
@@ -26,10 +33,169 @@ function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
     });
   }
   
+  
     if (user){
-      
-      
-        
+        function handleCreateRoutine(e){
+          
+          e.preventDefault();
+          fetch('/CreateRoutine', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title: `${user.username} Routine`,
+              user_id: user.id
+            }),
+          })   
+          .then((r) => {
+            if (r.ok) {
+              r.json().then((Routine) => {
+                  console.log(Routine)
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Monday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Tuesday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Wednesday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Thursday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Friday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Saturday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch('/CreateDay', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      dotw: `Sunday`,
+                      title: 'Click To Edit',
+                      routine_id: Routine.id
+                    }),
+                  })   
+                  .then((r) => {
+                    if (r.ok) {
+                      r.json().then((day) => {
+                          console.log(day)
+                      });
+                    }
+                  });
+                  fetch("/me",{credentials:'include'}).then((r) => {
+                    if (r.ok) {
+                      r.json().then((user) => {
+                        setUser(user);
+                        
+                        
+                      })
+                    }
+                  });
+                //////////////////////////////////////////////////////////////////////////////////////////////// 
+              });
+            }
+          });
+          
+          ///Run Rerender Fetches here///
+         
+        }
+     
       
       // for each routine that belongs to user create a button 
       // that will set the routine equal to the value of the button 
@@ -50,9 +216,16 @@ function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
         <HomeDiv>
           <h1>Welcome, {user.username} !</h1>
           <h1>Select a routine</h1>
-          <div>
-            {mapRoutines()}
-          </div>
+          <Column>
+            <div>
+              {mapRoutines()}
+            </div>
+            {user.routines.length<4? 
+            <AddButton onClick={handleCreateRoutine}>
+              Add New Workout Routine
+            </AddButton>
+            :''}
+          </Column>
         </HomeDiv>
       );
     } 

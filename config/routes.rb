@@ -3,12 +3,13 @@ Rails.application.routes.draw do
   get "/me", to: "users#show"
   get "/users/:id", to: "users#routines"
 
+  post "/CreateRoutine", to:"routines#create"
   get "/Routine",to: "routines#routines"
   get "/Routine/:id", to: "routines#show"
   # update "/UpdateRoutine/:id", to: "routines#update"#
   
   #add a update here so you can change the title value for the days
-  
+  post "/CreateDay", to: "days#create"
   get "/Workout/:id", to: "days#show"
   get "/GetDayData/:id", to: "days#getDayData"
   patch '/UpdateDayData/:id', to: "days#update"

@@ -35,7 +35,7 @@ class DaysController < ApplicationController
 
     private
     def day_params
-        params.permit(:dotw, :title)
+        params.permit(:dotw, :title,:routine_id)
     end
 
     def nested_day_params
