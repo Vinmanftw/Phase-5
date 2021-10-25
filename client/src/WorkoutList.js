@@ -46,7 +46,7 @@ justify-content: center;
 width: 100%;
 `
 
-function WorkoutList({dayId}) {
+function WorkoutList({dayId, day, curDay, setCurDay,setLoadCards,workoutArrayLength,setWorkoutArrayLength}) {
     const [workouts, setWorkouts] = useState([]);
     useEffect(() => {
    
@@ -58,9 +58,7 @@ function WorkoutList({dayId}) {
         });
     }, []);
 
-    const distinct = (value,index,self) => {
-      return self.indexOf(value) === index;
-    }
+    
 
     function mapWorkouts(){
         if (workouts){
@@ -79,7 +77,7 @@ function WorkoutList({dayId}) {
           });
           
           return result.map((workout) => (
-          <Workout workout={workout} dayId={dayId} key={workout.id}/>
+          <Workout workout={workout} day={day} curDay={curDay} setCurDay={setCurDay} workoutArrayLength={workoutArrayLength} setWorkoutArrayLength={setWorkoutArrayLength} dayId={dayId} setLoadCards={setLoadCards} key={workout.id}/>
           ))
         }
     }

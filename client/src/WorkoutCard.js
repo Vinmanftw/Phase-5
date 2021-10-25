@@ -29,6 +29,14 @@ const TitleDiv = styled("div")`
 width:40%;
 padding:.5%;
 `
+const UpdateDeleteDiv = styled("div")`
+display: flex;
+flex-flow: row;
+justify content: flex-end;
+width:20%;
+padding:.5%;
+`
+
 const Reps = styled("input")`
 display: flex;`
 const Card = styled("div")`
@@ -64,13 +72,24 @@ color: black;
 border-radius: 5px;
 `
 
-function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName, primary,setPrimary,secondary, setSecondary,secondary2, setSecondary2,secondary3, setSecondary3,secondary4, setSecondary4}) {
+const DeleteButton = styled("button")`
+margin:auto;
+font-size:20px;
+text-align: center;
+border:1px black solid;
+background-color: red;
+color: black;
+border-radius: 5px;
+`
+
+function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay,setDayId,workoutArrayLength,setWorkoutArrayLength,handleDeleteCard,loadCards,setLoadCards,workout,active,setActive,name, setName, primary,setPrimary,secondary, setSecondary,secondary2, setSecondary2,secondary3, setSecondary3,secondary4, setSecondary4}) {
     
-    const [workoutData, setWorkoutData] = useState(null)
+    const [workoutData, setWorkoutData] = useState(workout)
     const [runFetch,setRunFetch] = useState(false)
     const [runUpdate, setRunUpdate] = useState(false)
     const [idToDelete, setIdToDelete] = useState(null)
     const [curArrayLength, setCurArrayLength] = useState(null)
+    const [updateSets, setUpdateSets] = useState(null)
     
     // when one of those values change for one of the sets then run
     // function onChange(){
@@ -148,9 +167,77 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
         }
       });
     }
-  
+    function handleUpdateCard(e){
+      e.preventDefault();
+      setUpdateSets(true);
+
+    }
+    function handleDeleteCard(e){
+      e.preventDefault();
+      console.log(workout.id)
+      setWorkoutIdToDelete(workout.id)
+      fetch(`/GetDayData/${day.id}`,{credentials:'include'}).then((r) => {
+        if (r.ok) {
+          r.json().then((day)=>{
+            setCurDay(day)            
+            // console.log(day);
+            console.log(day.workouts.length);
+            setWorkoutArrayLength(day.workouts.length);
+          });
+        }
+      });
+      fetch(`/DeleteCardData/${workout.id}`, {
+        method: 'DELETE', 
+      })
+      fetch(`/GetDayData/${day.id}`,{credentials:'include'}).then((r) => {
+        if (r.ok) {
+          r.json().then((day)=>{
+            setCurDay(day)
+            // console.log(day);
+            
+            console.log(day.workouts.length);
+            setWorkoutArrayLength(day.workouts.length);
+          });
+        }
+      });
+      
     
+     
+    }
     useEffect(() => {
+      if(workoutIdToDelete){
+        fetch(`/DeleteCardData/${workoutIdToDelete}`, {
+          method: 'DELETE', 
+        })
+        fetch(`/GetDayData/${day.id}`,{credentials:'include'}).then((r) => {
+          if (r.ok) {
+            r.json().then((day)=>{
+              setCurDay(day)
+              // console.log(day);
+              
+              console.log(day.workouts.length);
+              setWorkoutArrayLength(day.workouts.length);
+            });
+          }
+        });    
+        setWorkoutIdToDelete(null);
+      } 
+    },[])
+    useEffect(() => {
+      if(loadCards === true) {
+        fetch(`/GetCardData/${workout.id}`,{credentials:'include'}).then((r) => {
+          if (r.ok) {
+            r.json().then((workout)=>{
+              setWorkoutData(workout);
+              // console.log(workout);
+              console.log(workout.sets.length);
+              setCurArrayLength(workout.sets.length);
+              setRunFetch(true);
+            });
+          }
+        });
+        setLoadCards(false);
+      }
       if(idToDelete !== null){
         fetch(`/DeleteSet/${idToDelete}`, {
           method: "DELETE",
@@ -174,9 +261,11 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
     
    
     useEffect(() => {
+      if(workoutIdToDelete !== null){
         fetch(`/GetCardData/${workout.id}`,{credentials:'include'}).then((r) => {
             if (r.ok) {
               r.json().then((workout)=>{
+                
                 setWorkoutData(workout);
                 // console.log(workout);
                 console.log(workout.sets.length);
@@ -185,6 +274,7 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
               });
             }
         });
+      }
     },[workout.sets]);
     
     if(workoutData){
@@ -206,7 +296,10 @@ function WorkoutCard({day,dayId,setDayId, workout,active,setActive,name, setName
                 <H1>{workout.name}</H1>
              </TitleDiv>
              <VideoDiv></VideoDiv>
-             
+             <UpdateDeleteDiv>
+               <DeleteButton onClick={handleDeleteCard}>Delete</DeleteButton>
+               <UpdateButton onClick={handleUpdateCard}>Update</UpdateButton>
+             </UpdateDeleteDiv>
             </TopRow>
             
             <SetsRow>

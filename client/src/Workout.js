@@ -58,7 +58,7 @@ width: 50%;
 margin-left:25%;
 
 `
-function Workout({workout, dayId}) {
+function Workout({workout, day,curDay,setCurDay,dayId, setLoadCards,workoutArrayLength,setWorkoutArrayLength}) {
     const [name,setName] = useState(workout.name)
     const [primary,setPrimary] = useState(workout.primary_muscle)
     const [secondary, setSecondary] = useState(workout.secondary_muscle_1)
@@ -95,7 +95,10 @@ function Workout({workout, dayId}) {
         })
         .then((r) => {
           if (r.ok) {
-            r.json().then((newWorkout) => {console.log(newWorkout);
+            r.json().then((newWorkout) => {
+              setWorkoutArrayLength(workoutArrayLength);
+              setLoadCards(true)
+              console.log(newWorkout);
               setWorkoutId(newWorkout.id);
               console.log(newWorkout.id);
               console.log(workoutId);
@@ -113,7 +116,17 @@ function Workout({workout, dayId}) {
               .then((r) => {
                 if (r.ok) {
                   r.json().then((newSet) => {console.log(newSet);
-                    
+                    fetch(`/GetDayData/${day.id}`,{credentials:'include'}).then((r) => {
+                      if (r.ok) {
+                        r.json().then((day)=>{
+                          setCurDay(day)
+                          // console.log(day);
+                          
+                          console.log(day.workouts.length);
+                          setWorkoutArrayLength(day.workouts.length);
+                        });
+                      }
+                    });
                   });
                 }
               });

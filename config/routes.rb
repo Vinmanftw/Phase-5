@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   #add a update here so you can change the title value for the days
   
   get "/Workout/:id", to: "days#show"
+  get "/GetDayData/:id", to: "days#getDayData"
   patch '/UpdateDayData/:id', to: "days#update"
 
   post "/CreateWorkout", to: "workouts#create"#
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
   get "/WorkoutList", to: "workouts#listWorkouts"#
   get "/GetCardData/:id", to: "workouts#getCardData"#
   patch "/UpdateCardData/:id", to: "workouts#updateCardData"#
+  delete "/DeleteCardData/:id", to: "workouts#destroy"#
   
 
   post "/AddSet", to: "workout_sets#create"#

@@ -59,7 +59,15 @@ class WorkoutsController < ApplicationController
             render json: {error: workout.errors.full_messages},status: :unprocessable_entity
         end
     end
-
+    def destroy
+        workout = Workout.find_by(:id => params[:id])
+        if workout
+            workout.destroy
+            head :no_content
+        else
+            render json: {error: error.full_messages }, status: :unauthorized
+        end
+    end
     private
     def workout_params
         params.permit(:name, :primary_muscle, :secondary_muscle_1,
