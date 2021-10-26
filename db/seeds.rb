@@ -22,11 +22,18 @@ saturday = Day.create(dotw: "Saturday", title: "rest day", routine_id: bulk.id)
 sunday = Day.create(dotw: "Sunday", title: "rest day", routine_id: bulk.id)
 
 puts'seeding workouts'
-Workout.create(name: "Incline Dumbbell Fly",primary_muscle: "Chest", day_id: monday.id)
-Workout.create(name: "Incline Dumbbell Chestpress",primary_muscle: "Chest", day_id: monday.id)
-Workout.create(name: "Rotating Dumbbell Rotating Chest Press",primary_muscle: "Chest" , day_id: tuesday.id)
-Workout.create(name: "Decline Dumbbell Fly To Press",primary_muscle: "Chest",day_id: tuesday.id)
+#MyData
+Workout.create(name: "Incline Dumbbell Fly",primary_muscle: "Chest", youtube_id: "ajdFwa-qM98",video_start_time:45,day_id: monday.id)
+Workout.create(name: "Incline Dumbbell Chestpress",primary_muscle: "Chest",youtube_id: "0G2_XV7slIg",video_start_time:184,day_id: monday.id)
+Workout.create(name: "Rotating Dumbbell Chest Press",primary_muscle: "Chest" , youtube_id:"fYrA7ThfxGk",video_start_time:31, day_id: monday.id)
+Workout.create(name: "Decline Dumbbell Fly To Press",primary_muscle: "Chest",youtube_id:"IMALXhhHRKM",video_start_time:34,day_id: monday.id)
+# stays
+Workout.create(name: "Incline Dumbbell Fly",primary_muscle: "Chest", youtube_id: "ajdFwa-qM98",video_start_time:45)
+Workout.create(name: "Incline Dumbbell Chestpress",primary_muscle: "Chest",youtube_id: "0G2_XV7slIg",video_start_time:184)
+Workout.create(name: "Rotating Dumbbell Chest Press",primary_muscle: "Chest" , youtube_id:"fYrA7ThfxGk",video_start_time:31)
+Workout.create(name: "Decline Dumbbell Fly To Press",primary_muscle: "Chest",youtube_id:"IMALXhhHRKM",video_start_time:34)
 puts 'seeding sets'
+
 WorkoutSet.create(reps: 15, prior_weight: 0,now_weight:0, workout_id: 1)
 WorkoutSet.create(reps: 12, prior_weight: 0,now_weight:0, workout_id: 1)
 WorkoutSet.create(reps: 8, prior_weight: 0,now_weight:0, workout_id: 1)
@@ -36,5 +43,7 @@ WorkoutSet.create(reps: 12, prior_weight: 45,now_weight:0, workout_id: 2)
 WorkoutSet.create(reps: 8, prior_weight: 50,now_weight:0, workout_id: 2)
 WorkoutSet.create(reps: 8, prior_weight: 45,now_weight:0, workout_id: 2)
 
+WorkoutSet.create(reps: 15, prior_weight: 45,now_weight:0, workout_id: 3)
 
+WorkoutSet.create(reps: 15, prior_weight: 20,now_weight:0, workout_id: 4)
 puts'seeding complete'

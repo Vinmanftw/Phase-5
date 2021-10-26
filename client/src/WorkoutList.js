@@ -82,10 +82,13 @@ function WorkoutList({dayId, workouts, setWorkouts, day, curDay, setCurDay,setLo
               id: workouts.find(s => s.name === name).id,
               name: name,
               primary_muscle: workouts.find(s => s.name === name).primary_muscle,
+              youtube_id: workouts.find(s => s.name === name).youtube_id,
+              video_start_time: workouts.find(s => s.name === name).video_start_time,
               secondary_muscle_1: workouts.find(s => s.name === name).secondary_muscle_1,
               secondary_muscle_2: workouts.find(s => s.name === name).secondary_muscle_2,
               secondary_muscle_3: workouts.find(s => s.name === name).secondary_muscle_3,
               secondary_muscle_4: workouts.find(s => s.name === name).secondary_muscle_4
+
             };
           });
           if(search === "all"){

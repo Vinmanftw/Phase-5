@@ -39,7 +39,13 @@ max-width: 900px;
 
 
 const InputName = styled('input')`
-width: 100%;
+width: 95%;
+border: 1px solid black;
+border-radius:4px;
+padding:5px;
+`
+const InputId = styled('input')`
+width: 95%;
 border: 1px solid black;
 border-radius:4px;
 padding:5px;
@@ -59,9 +65,21 @@ const LabelDivv = styled('div')`
 display:flex;
 flex-flow: column;
 justify-content: flex-start;
-width:40%;
-margin-bottom: 5%;
+width:30%;
 
+
+`
+const IdLabelDivv = styled('div')`
+display:flex;
+flex-flow: column;
+justify-content: flex-start;
+width:30%;
+`
+const TimeLabelDivv = styled('div')`
+display:flex;
+flex-flow: column;
+justify-content: flex-start;
+width:30%;
 `
 const Space = styled('div')`
 display:flex;
@@ -125,9 +143,11 @@ padding: 0;
 const TopRow = styled("div")`
 display: flex;
 flex-flow: row;
-width:99%;
-margin-left: 1%;
-justify-content: flex-start;
+width:100%;
+gap:2%;
+
+margin-bottom: 4%;
+justify-content: center;
 `
 const BottomRow = styled("div")`
 display: flex;
@@ -150,6 +170,8 @@ function Form({workouts ,setWorkouts ,setToggleForm , toggleForm,dayId, day, cur
   const history = useHistory();
   const [name,setName] = useState('')
   const [primary,setPrimary] = useState('Chest')
+  const [youtubeId,setYoutubeId] = useState('')
+  const [videoStartTime,setVideoStartTime] = useState('')
   const [secondary, setSecondary] = useState('')
   const [secondary2, setSecondary2] = useState('')
   const [secondary3, setSecondary3] = useState('')
@@ -184,6 +206,8 @@ function Form({workouts ,setWorkouts ,setToggleForm , toggleForm,dayId, day, cur
       body: JSON.stringify({
         name,
         primary_muscle: primary,
+        youtube_id: youtubeId,
+        video_start_time: videoStartTime,
         secondary_muscle_1: secondary,
         secondary_muscle_2: secondary2,
         secondary_muscle_3: secondary3,
@@ -224,11 +248,30 @@ function Form({workouts ,setWorkouts ,setToggleForm , toggleForm,dayId, day, cur
                     onChange={(e) => setName(e.target.value)}
                 />
               </LabelDivv>
-              
+              <IdLabelDivv>
+                <Label htmlFor="youtube_id">YouTube ID*</Label>
+                <InputId
+                    type="text"
+                    id="youtube_id"
+                    autoComplete="off"
+                    value={youtubeId}
+                    onChange={(e) => setYoutubeId(e.target.value)}
+                />
+              </IdLabelDivv>
+              <TimeLabelDivv>
+                <Label htmlFor="video_start_time">Video Start Time (seconds)</Label>
+                <InputId
+                    type="integer"
+                    id="video_start_time"
+                    autoComplete="off"
+                    value={videoStartTime}
+                    onChange={(e) => setVideoStartTime(e.target.value)}
+                />
+              </TimeLabelDivv>
             </TopRow>
             <BottomRow>
             <LabelDiv>
-              <Label htmlFor="primary_muscle">Primary Muscle Group Required*</Label>
+              <Label htmlFor="primary_muscle">Primary Muscle Group*</Label>
               <Select onChange={(e) => setPrimary(e.target.value)} PrimaryMuscle="primary_muscle" id="primary_muscle">
                 <option value="Chest">Chest</option>
                 <option value="Legs">Legs</option>

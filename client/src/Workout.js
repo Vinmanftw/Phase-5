@@ -12,9 +12,13 @@ border-radius: 5px;
 padding:.5%;
 `
 const VideoDiv = styled("div")`
-width:40%;
-padding:.5%;
-height: 150px;
+display: flex;
+flex-flow: row;
+justify-content:center;
+width:100%;
+
+
+
 `
 const TitleDiv = styled("div")`
 width:70%;
@@ -45,7 +49,9 @@ flex-flow: row;
 width:98%;
 margin-left: 1%;
 `
-
+const Img = styled("img")`
+border: 1px black solid;
+border-radius:4px;`
 const SetsRow = styled("div")`
 display: flex;
 flex-flow: row;
@@ -53,14 +59,29 @@ margin-left: 1%;
 width: 99%;
 gap:1%;
 `
+const VidBox = styled("iframe")`
+    
+width: 96%;
+aspect-ratio: 16 / 9;
+border: 1px solid black;
+border-radius: 10px;
+  
+`
 const Btn = styled("button")`
 width: 50%;
+margin-top: 1.5%;
 margin-left:25%;
+background-color: #13cbd2;
+border: 1px black solid;
+border-radius: 4px;
+
 
 `
 function Workout({workout, day,curDay,setCurDay,dayId, setLoadCards,workoutArrayLength,setWorkoutArrayLength}) {
     const [name,setName] = useState(workout.name)
     const [primary,setPrimary] = useState(workout.primary_muscle)
+    const [youtubeId,setYoutubeId] = useState(workout.youtube_id)
+    const [videoStartTime,setVideoStartTime] = useState(workout.video_start_time)
     const [secondary, setSecondary] = useState(workout.secondary_muscle_1)
     const [secondary2, setSecondary2] = useState(workout.secondary_muscle_2)
     const [secondary3, setSecondary3] = useState(workout.secondary_muscle_3)
@@ -72,6 +93,8 @@ function Workout({workout, day,curDay,setCurDay,dayId, setLoadCards,workoutArray
         e.preventDefault();
         setName(name);
         setPrimary(primary);
+        setYoutubeId(youtubeId);
+        setVideoStartTime(videoStartTime);
         setSecondary(secondary);
         setSecondary2(secondary2);
         setSecondary3(secondary3);
@@ -87,6 +110,8 @@ function Workout({workout, day,curDay,setCurDay,dayId, setLoadCards,workoutArray
             name,
             day_id: dayId,
             primary_muscle: primary,
+            youtube_id: youtubeId,
+            video_start_time: videoStartTime,
             secondary_muscle_1: secondary,
             secondary_muscle_2: secondary2,
             secondary_muscle_3: secondary3,
@@ -156,7 +181,9 @@ function Workout({workout, day,curDay,setCurDay,dayId, setLoadCards,workoutArray
              </PrimaryMuscleDiv>
             </TopRow>
             <VideoDiv>
-                 
+              <VidBox src={`https://www.youtube.com/embed/${workout.youtube_id}${workout.video_start_time?"?start="+workout.video_start_time:``}`}>
+                video isn't supportes
+              </VidBox>
             </VideoDiv>
             <Btn onClick={handleButton} >
              Add

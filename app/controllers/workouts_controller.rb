@@ -70,14 +70,14 @@ class WorkoutsController < ApplicationController
     end
     private
     def workout_params
-        params.permit(:name, :primary_muscle, :secondary_muscle_1,
+        params.permit(:name, :primary_muscle,:youtube_id,:video_start_time, :secondary_muscle_1,
             :secondary_muscle_2, :secondary_muscle_3, :secondary_muscle_4,:day_id)
     end
     # def workout_update_params
     #     params.permit(:prior_weight, :reps)
     # end
     def nested_workout_params
-        params.require(:workout).permit(:name, :primary_muscle, 
+        params.require(:workout).permit(:name, :primary_muscle, :youtube_id,:video_start_time,
         :secondary_muscle_1, :secondary_muscle_2, :secondary_muscle_3, 
         :secondary_muscle_4, sets_attributes: %i[id prior_weight now_weight reps _destroy])
     end

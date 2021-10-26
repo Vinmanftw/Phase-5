@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 2021_10_14_144358) do
   create_table "workouts", force: :cascade do |t|
     t.string "name"
     t.string "primary_muscle"
+    t.string "youtube_id"
+    t.integer "video_start_time"
     t.string "secondary_muscle_1"
     t.string "secondary_muscle_2"
     t.string "secondary_muscle_3"

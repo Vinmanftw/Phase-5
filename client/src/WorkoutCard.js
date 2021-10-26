@@ -60,6 +60,13 @@ margin-left: 1%;
 width: 99%;
 gap:1%;
 `
+const VideoRow = styled("div")`
+display: flex;
+flex-flow: row;
+margin-left: 1%;
+width: 99%;
+justify-content: center;
+`
 const UpdateButton = styled("button")`
 margin:auto;
 font-size:20px;
@@ -81,7 +88,27 @@ background-color: red;
 color: black;
 border-radius: 5px;
 `
-
+const VidBox = styled("iframe")`
+    
+    width: 60%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 2%;
+`
+const Details = styled("div")`
+  margin-left: 2%;
+  display: flex;
+  flex-flow: column;    
+  width: 38%; 
+  
+`
+const Li = styled("li")`
+width: 90%;
+margin-left: 5%;
+self-align: center;
+font-size: 15px;
+`
 function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay,setDayId,workoutArrayLength,setWorkoutArrayLength,handleDeleteCard,loadCards,setLoadCards,workout,active,setActive,name, setName, primary,setPrimary,secondary, setSecondary,secondary2, setSecondary2,secondary3, setSecondary3,secondary4, setSecondary4}) {
     
     const [workoutData, setWorkoutData] = useState(workout)
@@ -90,7 +117,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
     const [idToDelete, setIdToDelete] = useState(null)
     const [curArrayLength, setCurArrayLength] = useState(null)
     const [updateSets, setUpdateSets] = useState(false)
-    
+    const [videoView, setVideoView] = useState(false)
     // when one of those values change for one of the sets then run
     // function onChange(){
     //   //update
@@ -309,15 +336,33 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
           <Card key={workout.id}>
             <TopRow>
              <TitleDiv>
-                <H1>{workout.name}</H1>
+                <H1 onClick={() =>{setVideoView(false)}}>{workout.name}</H1>
              </TitleDiv>
-             <VideoDiv></VideoDiv>
+             <VideoDiv>
+               <H1 onClick={()=>{setVideoView(true)}}>Video & Details</H1>
+             </VideoDiv>
              <UpdateDeleteDiv>
                <DeleteButton onClick={handleDeleteCard}>Delete</DeleteButton>
-               
              </UpdateDeleteDiv>
             </TopRow>
-            
+            {videoView?
+            <VideoRow>
+              <VidBox src={`https://www.youtube.com/embed/${workout.youtube_id}${workout.video_start_time?"?start="+workout.video_start_time:``}`}>
+                video isn't supportes
+              </VidBox>
+              <Details>
+                <h2>{workout.name} details:</h2>
+                <Li>YouTube Video ID:{workout.youtube_id}</Li>
+                <Li>Video Start Time:{workout.video_start_time} seconds</Li>
+                <Li>Primary Muscle Group:{workout.primary_muscle}</Li>
+                <Li>1st Secondary Muscle Group:{workout.secondary_muscle_1}</Li>
+                <Li>2nd Secondary Muscle Group:{workout.secondary_muscle_2}</Li>
+                <Li>3rd Secondary Muscle Group:{workout.secondary_muscle_3}</Li>
+                <Li>4th Secondary Muscle Group:{workout.secondary_muscle_4}</Li>
+              </Details>
+            </VideoRow>
+            :  
+          
             <SetsRow>
               {mapSets()}
               <AddOrDelete>
@@ -325,6 +370,8 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
                 {curArrayLength>1?<button onClick={handleDeleteSet}>-</button>:''}
               </AddOrDelete>
             </SetsRow>
+            }
+            
             
           </Card>  
         )
