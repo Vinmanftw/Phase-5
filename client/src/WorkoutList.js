@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {useHistory, Link} from "react-router-dom"
 import Workout from "./Workout"
+import { render } from "react-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const NavigationContainer = styled("div")`
 display: flex;
@@ -24,6 +26,7 @@ const Nav = styled("div")`
 display: flex;
 flex-flow: row;
 justify-content: flex-start;
+
 `
 const H1= styled("div")`
 display: flex;
@@ -36,7 +39,7 @@ background-color: white;
 const CardContainer = styled("div")`
 display: flex;
 flex-flow: column;
-justify-content: center;
+justify-content: flex-start;
 width: 100%;
 `
 const Btn = styled("button")`
@@ -47,20 +50,22 @@ width: 100%;
 `
 const Select = styled('select')`
 width:100%;
+margin-left:1%;
 font-size: 20px;
 color:#13cbd2;
 background-color:#404040;
 border-radius: 4px;
 border: 1px solid #13cbd2;
 text-align: center;
-margin-top: 8%;
-margin-bottom: 5%;`
+margin-bottom: 6.5%;`
 
 
 
 function WorkoutList({dayId, workouts, setWorkouts, day, curDay, setCurDay,setLoadCards,workoutArrayLength,setWorkoutArrayLength}) {
     
+    
     const [search, setSearch] = useState("all");
+    const [curResult,setCurResult] = useState([]);
     useEffect(() => {
    
         fetch("/WorkoutList").then((r) => {
@@ -70,7 +75,7 @@ function WorkoutList({dayId, workouts, setWorkouts, day, curDay, setCurDay,setLo
           }
         });
     }, []);
-
+    
     
 
     function mapWorkouts(){
@@ -92,9 +97,26 @@ function WorkoutList({dayId, workouts, setWorkouts, day, curDay, setCurDay,setLo
             };
           });
           if(search === "all"){
-            return result.map((workout) => (
-              <Workout workout={workout} day={day} curDay={curDay} setCurDay={setCurDay} workoutArrayLength={workoutArrayLength} setWorkoutArrayLength={setWorkoutArrayLength} dayId={dayId} setLoadCards={setLoadCards} key={workout.id}/>
-              ))
+            return (
+              <InfiniteScroll dataLength={result.length}
+                height={750}
+                className="workoutList">
+                {result.map((workout) => ( 
+                  <Workout 
+                  workout={workout}
+                  day={day}
+                  curDay={curDay} 
+                  setCurDay={setCurDay} 
+                  workoutArrayLength={workoutArrayLength} 
+                  setWorkoutArrayLength={setWorkoutArrayLength} 
+                  dayId={dayId} 
+                  setLoadCards={setLoadCards} 
+                  key={workout.id}
+                  />
+                  ))}
+              </InfiniteScroll>
+            )
+           
           }
           else{
             const filteredWorkouts = result.filter((workout)=>{
@@ -106,10 +128,29 @@ function WorkoutList({dayId, workouts, setWorkouts, day, curDay, setCurDay,setLo
               }
 
             })
-            return filteredWorkouts.map((workout) => ( <Workout workout={workout} day={day} curDay={curDay} setCurDay={setCurDay} workoutArrayLength={workoutArrayLength} setWorkoutArrayLength={setWorkoutArrayLength} dayId={dayId} setLoadCards={setLoadCards} key={workout.id}/>))
+            
+            return (
+              <InfiniteScroll dataLength={filteredWorkouts.length}
+                height={750}>
+                {filteredWorkouts.map((workout) => ( 
+                  <Workout 
+                  workout={workout}
+                  day={day}
+                  curDay={curDay} 
+                  setCurDay={setCurDay} 
+                  workoutArrayLength={workoutArrayLength} 
+                  setWorkoutArrayLength={setWorkoutArrayLength} 
+                  dayId={dayId} 
+                  setLoadCards={setLoadCards} 
+                  key={workout.id}
+                  />
+                  ))}
+              </InfiniteScroll>
+            )
           }
         }
     }
+
     return (
         <CardContainer>
           <Nav>
@@ -124,17 +165,19 @@ function WorkoutList({dayId, workouts, setWorkouts, day, curDay, setCurDay,setLo
 
             </Select>
           </Nav>
+          
             
-            
-          <SelectCardContainer>
+          
             {mapWorkouts()}
-          </SelectCardContainer>
+          
             
           
           
             
         </CardContainer>
-    )
+    );
+
 }
+
 
 export default WorkoutList

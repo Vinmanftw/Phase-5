@@ -41,7 +41,8 @@ border-radius: 20px;
 background-color: #404040;
 margin-bottom: 2%;
 padding-bottom: 2%;
-width:100%;
+width:96%;
+margin-left:2%;
 `
 const TopRow = styled("div")`
 display: flex;

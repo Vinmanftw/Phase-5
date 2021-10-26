@@ -46,6 +46,7 @@ justify-content: center;
 border: 1px black solid;
 border-radius: 20px;
 background-color: #404040;
+
 margin-bottom: 2%;`
 const TopRow = styled("div")`
 display: flex;
@@ -97,18 +98,40 @@ const VidBox = styled("iframe")`
     margin-bottom: 2%;
 `
 const Details = styled("div")`
-  margin-left: 2%;
+  margin-left: 1%;
   display: flex;
   flex-flow: column;    
   width: 38%; 
   
 `
-const Li = styled("li")`
-width: 90%;
-margin-left: 5%;
-self-align: center;
-font-size: 15px;
+const Table = styled("table")`
+font-family: arial, sans-serif;
+border-collapse: collapse;
+width: 99%;
 `
+const H2 = styled("h2")`
+margin: 2 auto;
+text-align:center;
+
+`
+const Td = styled("td")`
+font-size:15px;
+border: 3px solid black;
+text-align: left;
+padding: 4px;
+color: black;
+background-color:#13cbd2;
+
+`
+const TdRight = styled("td")`
+border: 3px solid black;
+text-align: center;
+padding: 4px;
+color: black;
+background-color:#13cbd2;
+`
+
+
 function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay,setDayId,workoutArrayLength,setWorkoutArrayLength,handleDeleteCard,loadCards,setLoadCards,workout,active,setActive,name, setName, primary,setPrimary,secondary, setSecondary,secondary2, setSecondary2,secondary3, setSecondary3,secondary4, setSecondary4}) {
     
     const [workoutData, setWorkoutData] = useState(workout)
@@ -165,7 +188,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
                   r.json().then((workout)=>{
                     setWorkoutData(workout);
                     // console.log(workout);
-                    console.log(workout.sets.length);
+                    
                     setCurArrayLength(workout.sets.length);
                     setRunFetch(true);
                   });
@@ -184,9 +207,8 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
       fetch(`/GetCardData/${workout.id}`)
       .then((r) => {
         if (r.ok) {
-          r.json().then((newSet) => {console.log(newSet);
-            console.log(newSet.sets);
-            console.log(newSet.sets[newSet.sets.length - 1].id);
+          r.json().then((newSet) => {
+            
             setCurArrayLength(newSet.sets.length)
             if(newSet.sets.length > 1){
               setIdToDelete(newSet.sets[newSet.sets.length - 1].id)
@@ -207,7 +229,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
             // console.log(workout);
             
 
-            console.log(workout.sets.length);
+            
             setCurArrayLength(workout.sets.length);
             setRunFetch(true);
           });
@@ -216,7 +238,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
     },[])
     function handleDeleteCard(e){
       e.preventDefault();
-      console.log(workout.id)
+      
       setWorkoutIdToDelete(workout.id)
       fetch(`/GetDayData/${day.id}`,{credentials:'include'}).then((r) => {
         if (r.ok) {
@@ -237,7 +259,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
             setCurDay(day)
             // console.log(day);
             
-            console.log(day.workouts.length);
+            
             setWorkoutArrayLength(day.workouts.length);
           });
         }
@@ -257,7 +279,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
               setCurDay(day)
               // console.log(day);
               
-              console.log(day.workouts.length);
+              
               setWorkoutArrayLength(day.workouts.length);
             });
           }
@@ -272,7 +294,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
             r.json().then((workout)=>{
               setWorkoutData(workout);
               // console.log(workout);
-              console.log(workout.sets.length);
+              
               setCurArrayLength(workout.sets.length);
               setRunFetch(true);
             });
@@ -293,7 +315,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
           r.json().then((workout)=>{
             setWorkoutData(workout);
             // console.log(workout);
-            console.log(workout.sets.length);
+            
             setCurArrayLength(workout.sets.length);
             setRunFetch(true);
           });
@@ -311,7 +333,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
                 
                 setWorkoutData(workout);
                 // console.log(workout);
-                console.log(workout.sets.length);
+                
                 setCurArrayLength(workout.sets.length);
                 setRunFetch(true);
               });
@@ -351,14 +373,38 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
                 video isn't supportes
               </VidBox>
               <Details>
-                <h2>{workout.name} details:</h2>
-                <Li>YouTube Video ID:{workout.youtube_id}</Li>
-                <Li>Video Start Time:{workout.video_start_time} seconds</Li>
-                <Li>Primary Muscle Group:{workout.primary_muscle}</Li>
-                <Li>1st Secondary Muscle Group:{workout.secondary_muscle_1}</Li>
-                <Li>2nd Secondary Muscle Group:{workout.secondary_muscle_2}</Li>
-                <Li>3rd Secondary Muscle Group:{workout.secondary_muscle_3}</Li>
-                <Li>4th Secondary Muscle Group:{workout.secondary_muscle_4}</Li>
+                <H2>{workout.name} Details:</H2>
+                <Table>
+                  <tr>
+                    <Td>YouTube Video ID</Td>
+                    <TdRight>{workout.youtube_id}</TdRight>
+                  </tr>
+                  <tr>
+                    <Td>Video Start Time</Td>
+                    <TdRight>{workout.video_start_time} seconds</TdRight>
+                  </tr>
+                  <tr>
+                    <Td>Primary Muscle Group</Td>
+                    <TdRight>{workout.primary_muscle}</TdRight>
+                  </tr>
+                  <tr>
+                    <Td>1st Secondary Muscle Group</Td>
+                    <TdRight>{workout.secondary_muscle_1}</TdRight>
+                  </tr>
+                  <tr>
+                    <Td>2nd Secondary Muscle Group</Td>
+                    <TdRight>{workout.secondary_muscle_2}</TdRight> 
+                  </tr>
+                  <tr>
+                    <Td>3rd Secondary Muscle Group</Td>
+                    <TdRight>{workout.secondary_muscle_3}</TdRight>
+                  </tr>
+                  <tr>
+                    <Td>4th Secondary Muscle Group</Td>
+                    <TdRight>{workout.secondary_muscle_4}</TdRight>
+                  </tr>
+                </Table>
+
               </Details>
             </VideoRow>
             :  

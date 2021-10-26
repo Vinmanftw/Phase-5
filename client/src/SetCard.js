@@ -133,7 +133,7 @@ function SetCard({ set, updateSets,setUpdateSets,runUpdate, setRunUpdate, workou
     
     function handleConfirm(e){
       e.preventDefault();
-      console.log(now);
+      
       if(now !== 0){
         setPrior(now)
       }
@@ -155,7 +155,7 @@ function SetCard({ set, updateSets,setUpdateSets,runUpdate, setRunUpdate, workou
       .then((r) => {
         if (r.ok) {
           r.json().then((set) => {
-            console.log(set)
+            
             setCurSet(set);
             
             
@@ -169,7 +169,7 @@ function SetCard({ set, updateSets,setUpdateSets,runUpdate, setRunUpdate, workou
         if (r.ok) {
           r.json().then((set)=>{
             setCurSet(set);
-            // console.log(set);
+            
             // setPrior(set.prior_weight);
             // setReps(set.reps)
             setRunFetch(false);

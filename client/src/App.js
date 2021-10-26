@@ -21,7 +21,7 @@ function App() {
   let path = document.location.pathname;
   useEffect(() => {
     console.log(path);
-    
+    console.log(routineId)
     if(path.includes("/week/")){
       let search = path.substring(path.indexOf('/week/'), path.lastIndexOf('/'))
       let val = search.match(/\d+/)[0];
@@ -62,7 +62,7 @@ function App() {
     });
 
 
-  }, [routineId, dayId]);
+  }, [routineId,setDayId, dayId]);
   
   
   
