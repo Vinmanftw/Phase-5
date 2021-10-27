@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post "/CreateRoutine", to:"routines#create"
   get "/Routine",to: "routines#routines"
   get "/Routine/:id", to: "routines#show"
-  # update "/UpdateRoutine/:id", to: "routines#update"#
+  patch "/UpdateRoutine/:id", to: "routines#update"
   
   #add a update here so you can change the title value for the days
   post "/CreateDay", to: "days#create"

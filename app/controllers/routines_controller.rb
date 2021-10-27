@@ -24,6 +24,14 @@ class RoutinesController < ApplicationController
             render json: {error: "Not authorized"}, status: :unauthorized
         end
     end
+    def update
+        routine = Routine.find_by(:id => params[:id])
+        if routine.update(routine_params)
+            render json: routine
+        else
+            render json: {error: routine.errors.full_messages},status: :unprocessable_entity
+        end
+    end
     private
     def routine_params
         params.permit(:title, :user_id)

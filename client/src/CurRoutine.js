@@ -7,9 +7,80 @@ margin: 0 auto;`
 const Week = styled("div")`
 display: flex;
 flex-flow: column;
-width: 30%;
-justify-content: center;`
+width: 45%;
+justify-content: center;
+`
+const Row = styled("div")`
+display: flex;
+flex-flow: row;
+justify-content:flex-start;
+gap:10px;`
+const ButtonInputDiv= styled('div')`
+display: flex;
+flex-flow: row;
+border:1px solid black;
+width:100%;
+border-radius:5px;
+background-color:#13cbd2;
+margin-top:10%;
+padding-top:1.5%;
+padding-bottom:1.5%;`
 
+const DayButton= styled('button')`
+color: black;
+font-size:30px;
+border-radius:5px;
+background-color:#13cbd2;
+border:0;
+text-align:Center;
+width:47.5%;
+`
+const TitleButton= styled('button')`
+color: black;
+font-size:30px;
+border-radius:5px;
+background-color:#13cbd2;
+border:0;
+text-align:center;
+width:47.5%;
+`
+const DayInput= styled('input')`
+color: black;
+font-size:20px;
+border-radius:5px;
+background-color:#13cbd2;
+border:1px solid black;
+text-align:center;
+width:47.5%;
+`
+const Edit = styled('button')`
+color: black;
+font-size:30px;
+border-radius:5px;
+background-color:#13cbd2;
+border:1px solid black;
+text-align:center;
+width:7%;`
+const CenterButton = styled('button')`
+color: black;
+font-size:30px;
+border-radius:5px;
+background-color:#13cbd2;
+border:0;
+text-align:center;
+width:5%;`
+const H1 = styled('h1')`
+font-size:40px;
+margin:0;
+color:#13cbd2;
+background-color:#404040;
+border-radius: 8px;
+border: 1px solid #13cbd2;
+padding-bottom:1%;
+padding-left:1.5%;
+padding-right:1.5%;
+`     
+      
 function CurRoutine({ user, setUser,routineId, routine, setRoutine, dayId,setDayId, day ,setDay }) {
   
     // fetch specific Routine home screen 
@@ -21,7 +92,55 @@ function CurRoutine({ user, setUser,routineId, routine, setRoutine, dayId,setDay
     // (thursday)
     // (friday)
     // 
-    
+    const [toggleEdit,setToggleEdit] = useState(false)
+    const [currentValue,setCurrentValue] = useState('')
+    function handleChange(e){
+      e.preventDefault();
+      setCurrentValue(e.target.value)
+      const newTitle = e.target.value;
+      console.log(newTitle)
+      console.log(parseInt(e.target.className.slice(-2)))
+      const curDayId = parseInt(e.target.className.slice(-2));
+      console.log(curDayId);
+      
+      fetch(`/UpdateDayData/${curDayId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: e.target.value
+        }),
+      })
+      .then((r) => {
+        if (r.ok) {
+          r.json().then((day) => {
+            console.log(day)
+            fetch(`/Routine/${routineId}`,{credentials:'include'}).then((r) => {
+              if (r.ok) {
+                r.json().then((routine)=>{
+                  setRoutine(routine);
+                  
+                });
+              }
+            });
+            
+            
+            
+            
+          });
+        }
+      });
+      fetch(`/Workout/${curDayId}`).then((r) => {
+        if (r.ok) {
+          r.json().then((day)=>{
+            setDay(day);
+            console.log(day);
+            
+          });
+        }
+      });
+    }
     console.log(user)
     let history = useHistory();
     function handleDay(e) {
@@ -62,21 +181,45 @@ function CurRoutine({ user, setUser,routineId, routine, setRoutine, dayId,setDay
       // console.log(routine.days.sort((a, b) => parseFloat(a.price) - parseFloat(b.price)))
       if (routine.days){
         return routine.days.map((day) => (
-        <button 
-         value={day.id}
-         key={day.id}
-         onClick={handleDay} 
-         >
-           {`${day.dotw} - ${day.title}`}
-         </button>))
+          
+         <ButtonInputDiv key={day.id}>
+          <DayButton
+          value={day.id}
+          onClick={handleDay} 
+          >
+            {`${day.dotw}`}
+          </DayButton>
+          <CenterButton>-</CenterButton>
+          {toggleEdit? 
+            <DayInput
+            type="text"
+            id="title"
+            className={day.id}
+            onChange={handleChange}
+            />
+          :
+          <TitleButton
+          value={day.id}
+          key={day.id}
+          onClick={handleDay} 
+          >
+            {`${day.title}`}
+          </TitleButton>
+          }
+         </ButtonInputDiv>
+         ))
       }
     }
+    
     if (user){
       
       if(routine){
         return (
           <HomeDiv>
-            <h1>{routine.title}</h1>
+            <Row>
+              <H1>{routine.title}</H1>
+              <Edit onClick={()=>setToggleEdit(!toggleEdit)}>✏️</Edit>
+            </Row>
             <Week>
               {mapDays()}
             </Week>

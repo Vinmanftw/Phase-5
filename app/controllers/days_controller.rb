@@ -26,7 +26,7 @@ class DaysController < ApplicationController
     end
     def update
         day = Day.find_by(:id => params[:id])
-        if day.update(nest_day_params)
+        if day.update(nested_day_params)
             render json: day
         else
             render json: {error: day.errors.full_messages},status: :unprocessable_entity

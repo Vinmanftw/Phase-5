@@ -6,7 +6,12 @@ import SetCard from './SetCard'
 const SetReps = styled("div")`
 display: flex;
 flex-flow: column;
-
+`
+const AddOrDeleteRow = styled("div")`
+display: flex;
+flex-flow: row;
+justify-content:flex-end;
+self-align:flex-end;
 `
 const AddOrDelete = styled("div")`
 display: flex;
@@ -14,7 +19,6 @@ flex-flow: column;
 justify-content:center;
 `
 const H1 = styled("h1")`
-
 font-size:20px;
 border:1px black solid;
 border-radius: 5px;
@@ -36,9 +40,9 @@ justify content: flex-end;
 width:20%;
 padding:.5%;
 `
-
 const Reps = styled("input")`
-display: flex;`
+display: flex;
+`
 const Card = styled("div")`
 display: flex;
 flex-flow: column;
@@ -46,8 +50,8 @@ justify-content: center;
 border: 1px black solid;
 border-radius: 20px;
 background-color: #404040;
-
-margin-bottom: 2%;`
+margin-bottom: 2%;
+`
 const TopRow = styled("div")`
 display: flex;
 flex-flow: row;
@@ -71,15 +75,12 @@ justify-content: center;
 const UpdateButton = styled("button")`
 margin:auto;
 font-size:20px;
-
 text-align: center;
-
 border:1px black solid;
 background-color: green;
 color: black;
 border-radius: 5px;
 `
-
 const DeleteButton = styled("button")`
 margin:auto;
 font-size:20px;
@@ -90,19 +91,17 @@ color: black;
 border-radius: 5px;
 `
 const VidBox = styled("iframe")`
-    
-    width: 60%;
-    aspect-ratio: 16 / 9;
-    border: 1px solid black;
-    border-radius: 10px;
-    margin-bottom: 2%;
+width: 60%;
+aspect-ratio: 16 / 9;
+border: 1px solid black;
+border-radius: 10px;
+margin-bottom: 2%;      
 `
 const Details = styled("div")`
-  margin-left: 1%;
-  display: flex;
-  flex-flow: column;    
-  width: 38%; 
-  
+margin-left: 1%;
+display: flex;
+flex-flow: column;    
+width: 38%;
 `
 const Table = styled("table")`
 font-family: arial, sans-serif;
@@ -112,7 +111,6 @@ width: 99%;
 const H2 = styled("h2")`
 margin: 2 auto;
 text-align:center;
-
 `
 const Td = styled("td")`
 font-size:15px;
@@ -121,7 +119,6 @@ text-align: left;
 padding: 4px;
 color: black;
 background-color:#13cbd2;
-
 `
 const TdRight = styled("td")`
 border: 3px solid black;
@@ -130,10 +127,7 @@ padding: 4px;
 color: black;
 background-color:#13cbd2;
 `
-
-
 function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay,setDayId,workoutArrayLength,setWorkoutArrayLength,handleDeleteCard,loadCards,setLoadCards,workout,active,setActive,name, setName, primary,setPrimary,secondary, setSecondary,secondary2, setSecondary2,secondary3, setSecondary3,secondary4, setSecondary4}) {
-    
     const [workoutData, setWorkoutData] = useState(workout)
     const [runFetch,setRunFetch] = useState(false)
     const [runUpdate, setRunUpdate] = useState(false)
@@ -188,27 +182,23 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
                   r.json().then((workout)=>{
                     setWorkoutData(workout);
                     // console.log(workout);
-                    
                     setCurArrayLength(workout.sets.length);
                     setRunFetch(true);
                   });
                 }
               });
-            
             }
             );
           }
         });
       }
     }
-
     function handleDeleteSet(e){
       e.preventDefault();
       fetch(`/GetCardData/${workout.id}`)
       .then((r) => {
         if (r.ok) {
           r.json().then((newSet) => {
-            
             setCurArrayLength(newSet.sets.length)
             if(newSet.sets.length > 1){
               setIdToDelete(newSet.sets[newSet.sets.length - 1].id)
@@ -218,8 +208,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
       });
     }
     // function handleUpdateCard(e){
-    //   e.preventDefault();
-      
+    //   e.preventDefault();     
     // }
     useEffect(() => {
       fetch(`/GetCardData/${workout.id}`,{credentials:'include'}).then((r) => {
@@ -227,9 +216,6 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
           r.json().then((workout)=>{
             setWorkoutData(workout);
             // console.log(workout);
-            
-
-            
             setCurArrayLength(workout.sets.length);
             setRunFetch(true);
           });
@@ -238,7 +224,6 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
     },[])
     function handleDeleteCard(e){
       e.preventDefault();
-      
       setWorkoutIdToDelete(workout.id)
       fetch(`/GetDayData/${day.id}`,{credentials:'include'}).then((r) => {
         if (r.ok) {
@@ -258,15 +243,10 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
           r.json().then((day)=>{
             setCurDay(day)
             // console.log(day);
-            
-            
             setWorkoutArrayLength(day.workouts.length);
           });
         }
       });
-      
-    
-     
     }
     useEffect(() => {
       if(workoutIdToDelete){
@@ -278,8 +258,6 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
             r.json().then((day)=>{
               setCurDay(day)
               // console.log(day);
-              
-              
               setWorkoutArrayLength(day.workouts.length);
             });
           }
@@ -294,7 +272,6 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
             r.json().then((workout)=>{
               setWorkoutData(workout);
               // console.log(workout);
-              
               setCurArrayLength(workout.sets.length);
               setRunFetch(true);
             });
@@ -304,18 +281,15 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
       }
       if(idToDelete !== null){
         fetch(`/DeleteSet/${idToDelete}`, {
-          method: "DELETE",
-          
+          method: "DELETE",          
         });
         setIdToDelete(null);
-        
       }
       fetch(`/GetCardData/${workout.id}`,{credentials:'include'}).then((r) => {
         if (r.ok) {
           r.json().then((workout)=>{
             setWorkoutData(workout);
             // console.log(workout);
-            
             setCurArrayLength(workout.sets.length);
             setRunFetch(true);
           });
@@ -330,10 +304,8 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
         fetch(`/GetCardData/${workout.id}`,{credentials:'include'}).then((r) => {
             if (r.ok) {
               r.json().then((workout)=>{
-                
                 setWorkoutData(workout);
                 // console.log(workout);
-                
                 setCurArrayLength(workout.sets.length);
                 setRunFetch(true);
               });
@@ -349,7 +321,6 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
                   // set={id:set.id,prior_weight: set.prior_weight, current_weight: 0, cur_reps: set.reps},
                   // take set object and turn it into =>
                   // { id: set.id , current_weight: set.prior_weight, prior_weight: 0, previous reps: set.reps}
-                    
                 <SetCard set={set}  workout={workout} runUpdate={runUpdate} setRunUpdate={setRunUpdate}  key={set.id}/>
                 ))
             }    
@@ -367,7 +338,7 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
                <DeleteButton onClick={handleDeleteCard}>Delete</DeleteButton>
              </UpdateDeleteDiv>
             </TopRow>
-            {videoView?
+          {videoView?
             <VideoRow>
               <VidBox src={`https://www.youtube.com/embed/${workout.youtube_id}${workout.video_start_time?"?start="+workout.video_start_time:``}`}>
                 video isn't supportes
@@ -404,21 +375,19 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
                     <TdRight>{workout.secondary_muscle_4}</TdRight>
                   </tr>
                 </Table>
-
               </Details>
             </VideoRow>
-            :  
-          
+            :
             <SetsRow>
-              {mapSets()}
-              <AddOrDelete>
-                {curArrayLength<6?<button onClick={handleAddSet}>+</button>:''}
-                {curArrayLength>1?<button onClick={handleDeleteSet}>-</button>:''}
-              </AddOrDelete>
-            </SetsRow>
-            }
-            
-            
+              <AddOrDeleteRow>
+                <AddOrDelete>
+                  {curArrayLength<6?<button onClick={handleAddSet}>+</button>:''}
+                  {curArrayLength>1?<button onClick={handleDeleteSet}>-</button>:''}
+                </AddOrDelete>
+              </AddOrDeleteRow>
+              {mapSets()}          
+            </SetsRow> 
+          }
           </Card>  
         )
     }
@@ -426,7 +395,6 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
         return(
             <div>
                 <h1>loading...</h1>
-
             </div>
         )
     }

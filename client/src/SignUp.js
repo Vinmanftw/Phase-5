@@ -65,7 +65,7 @@ function SignUp({ setUser }) {
                     },
                     body: JSON.stringify({
                       dotw: `Monday`,
-                      title: 'Click To Edit',
+                      title: 'Edit With ✏️',
                       routine_id: Routine.id
                     }),
                   })   
@@ -83,7 +83,7 @@ function SignUp({ setUser }) {
                     },
                     body: JSON.stringify({
                       dotw: `Tuesday`,
-                      title: 'Click To Edit',
+                      title: 'Edit With ✏️',
                       routine_id: Routine.id
                     }),
                   })   
@@ -101,7 +101,7 @@ function SignUp({ setUser }) {
                     },
                     body: JSON.stringify({
                       dotw: `Wednesday`,
-                      title: 'Click To Edit',
+                      title: 'Edit With ✏️',
                       routine_id: Routine.id
                     }),
                   })   
@@ -119,7 +119,7 @@ function SignUp({ setUser }) {
                     },
                     body: JSON.stringify({
                       dotw: `Thursday`,
-                      title: 'Click To Edit',
+                      title: 'Edit With ✏️',
                       routine_id: Routine.id
                     }),
                   })   
@@ -137,7 +137,7 @@ function SignUp({ setUser }) {
                     },
                     body: JSON.stringify({
                       dotw: `Friday`,
-                      title: 'Click To Edit',
+                      title: 'Edit With ✏️',
                       routine_id: Routine.id
                     }),
                   })   
@@ -155,7 +155,7 @@ function SignUp({ setUser }) {
                     },
                     body: JSON.stringify({
                       dotw: `Saturday`,
-                      title: 'Click To Edit',
+                      title: 'Edit With ✏️',
                       routine_id: Routine.id
                     }),
                   })   
@@ -173,7 +173,7 @@ function SignUp({ setUser }) {
                     },
                     body: JSON.stringify({
                       dotw: `Sunday`,
-                      title: 'Click To Edit',
+                      title: 'Edit With ✏️',
                       routine_id: Routine.id
                     }),
                   })   
@@ -184,7 +184,7 @@ function SignUp({ setUser }) {
                       });
                     }
                   });
-                  fetch("/me",{credentials:'include'}).then((r) => {
+                  fetch("/me").then((r) => {
                     if (r.ok) {
                       r.json().then((user) => {
                         setUser(user);
