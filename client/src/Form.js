@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { useHistory } from 'react-router-dom'
 import styled from "styled-components";
 const FORM= styled('form')`
-  background-color: #404040;
-  border: 1px solid black;
+  background-color: #2e2e2e;
+  border-top: 2px solid black;
+border-right: 1px solid black;
+border-bottom: 2px solid black;
+border-left: 1px solid black;
   border-radius:20px;
   display: flex;
   flex-flow: column;
@@ -21,7 +24,10 @@ const Select = styled('select')`
     color:#13cbd2;
     background-color:#333333;
     border-radius: 4px;
-    border: 1px solid black;
+    border-top: 1px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 1px solid black;
     text-align: center;
     margin:0 auto;
     margin-top: 8%;
@@ -34,19 +40,26 @@ flex-flow: column;
 margin: 0 auto;
 text-align: center;
 justify-center: center;
+width:100%;
 max-width: 900px;
 ` 
 
 
 const InputName = styled('input')`
 width: 95%;
-border: 1px solid black;
+border-top: 1px solid black;
+border-right: 2px solid black;
+border-bottom: 2px solid black;
+border-left: 1px solid black;
 border-radius:4px;
 padding:5px;
 `
 const InputId = styled('input')`
 width: 95%;
-border: 1px solid black;
+border-top: 1px solid black;
+border-right: 2px solid black;
+border-bottom: 2px solid black;
+border-left: 1px solid black;
 border-radius:4px;
 padding:5px;
 `
@@ -56,7 +69,10 @@ flex-flow: column;
 justify-content: flex-start;
 width:40%;
 margin-bottom: 5%;
-border: 1px solid black;
+border-top: 1px solid black;
+border-right: 2px solid black;
+border-bottom: 2px solid black;
+border-left: 1px solid black;
 border-radius: 4px;
 background-color:#555555;
 
@@ -119,7 +135,10 @@ width:40%;
 
 
 
-border:1px black solid;
+border-top: 1px solid black;
+border-right: 2px solid black;
+border-bottom: 2px solid black;
+border-left: 1px solid black;
 background-color: green;
 color: black;
 border-radius: 5px;
@@ -130,15 +149,26 @@ const CancelButton = styled("button")`
 
 width:10%;
 
-border:1px black solid;
+
+border-top: 1px solid black;
+border-right: 2px solid black;
+border-bottom: 2px solid black;
+border-left: 1px solid black;
 background-color: red;
 color: black;
 border-radius: 5px;
 `
 const H1 = styled("h1")`
 font: 25px Caveat;
+background-color:#404040;
+border-top: 1px solid black;
+border-right: 2px solid black;
+border-bottom: 2px solid #13cbd2;
+border-left: 1px solid #13cbd2;
+border-radius:4px;
 margin: 0;
-padding: 0;
+padding-left: 1%;
+padding-right: 1%;
 `
 const TopRow = styled("div")`
 display: flex;

@@ -56,9 +56,13 @@ const WeekButton = styled("button")`
 width:20%;
 font-size: 20px;
 color:#13cbd2;
-background-color:#404040;
+background-color: #1F2833;
+border-top: 1px solid #13cbd2;
+border-right: 2px solid #13cbd2;
+border-bottom: 2px solid #13cbd2;
+border-left: 1px solid #13cbd2;
 border-radius: 4px;
-border: 1px solid #13cbd2;
+
 text-align: center;
 
 margin-bottom: 3%;
@@ -68,9 +72,14 @@ const DaySelect = styled("Select")`
 width:79%;
 font-size: 20px;
 color:#13cbd2;
-background-color:#404040;
+background-color: #1F2833;
+border-top: 1px solid #13cbd2;
+border-right: 2px solid #13cbd2;
+border-bottom: 2px solid #13cbd2;
+border-left: 1px solid #13cbd2;
 border-radius: 4px;
-border: 1px solid #13cbd2;
+
+
 text-align: center;
 margin-bottom: 3%;
 `

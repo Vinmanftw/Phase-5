@@ -92,13 +92,17 @@ width:80;
 font-size:40px;
 margin:0 auto;
 color:#13cbd2;
-background-color:#404040;
+background-color:#1F2833;
 border-radius: 8px;
-border: 1px solid #13cbd2;
+border-top: 1px solid #13cbd2;
+  border-right: 2px solid #13cbd2;
+  border-bottom: 2px solid #13cbd2;
+  border-left: 1px solid #13cbd2;
+  border-radius:8px;
 text-align: center;
 padding-bottom:1.5%;
-padding-left:1.5%;
-padding-right:1.5%;
+padding-left:1.4%;
+padding-right:1.4%;
 `
 function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
   
@@ -360,8 +364,10 @@ function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
           <Column>
             
             <Week>
-              <H1> Select A Routine </H1>
-              <Edit onClick={()=>setToggleEdit(!toggleEdit)}>✏️</Edit>
+                <Row>
+                  <H1> Select A Routine </H1>
+                  <Edit onClick={()=>setToggleEdit(!toggleEdit)}>✏️</Edit>
+                </Row>
                 {mapRoutines()}
                 {user.routines?
                   user.routines.length<4? 

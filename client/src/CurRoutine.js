@@ -72,10 +72,13 @@ width:5%;`
 const H1 = styled('h1')`
 font-size:40px;
 margin:0;
-color:#13cbd2;
-background-color:#404040;
+background-color: #1F2833;
+border-top: 1px solid #13cbd2;
+border-right: 2px solid #13cbd2;
+border-bottom: 2px solid #13cbd2;
+border-left: 1px solid #13cbd2;
 border-radius: 8px;
-border: 1px solid #13cbd2;
+
 padding-bottom:1%;
 padding-left:1.5%;
 padding-right:1.5%;

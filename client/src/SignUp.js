@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { useHistory } from 'react-router-dom'
 import styled from "styled-components";
 const FORM= styled('form')`
-  background-color: #404040;
+  background-color: #1F2833;
   border: 1px solid #13cbd2;
-  
+  border-top: 1px solid #13cbd2;
+  border-right: 2px solid #13cbd2;
+  border-bottom: 2px solid #13cbd2;
+  border-left: 1px solid #13cbd2;
+  border-radius:8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,6 +17,20 @@ const FORM= styled('form')`
   margin: 0 auto;
   padding: 1rem 0 1rem 0;
 `
+const Btn = styled("Button")`
+color:#13cbd2;
+border: 1px solid black;
+background-color: #0b0c10;
+cursor: pointer;`
+/* 
+#0b0c10
+#1F2833
+#C5C6C7
+#66FCF1
+#45A29E
+
+
+*/
 function SignUp({ setUser }) {
   const history = useHistory();
   const [firstName, setFirstName] = useState("");
@@ -281,7 +299,7 @@ function SignUp({ setUser }) {
           onChange={(e) => setPasswordConfirmation(e.target.value)}
           autoComplete="current-password"
         />
-        <button type="submit">Sign Up</button>
+        <Btn type="submit">Sign Up</Btn>
       </FORM>
     </div>
   );

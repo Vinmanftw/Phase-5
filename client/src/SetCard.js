@@ -13,7 +13,7 @@ gap:1%;
 const Set = styled("div")`
 display: flex;
 flex-flow: column;
-background-color: #2e2e2e;
+background-color: #0b0c10;
 width: 100%;
 padding-top:9%;
 padding-bottom:9%;
@@ -25,11 +25,11 @@ align-items: center;
 const PriorDiv = styled("div")`
 display: flex;
 text-align: center;
-background-color: white;
+background-color: #66FCF1;
 aspect-ratio: 4/3;
 width:81%;
 margin: auto;
-border:1px #13cbd2 solid;
+// border:1px #13cbd2 solid;
 `
 
 const Prior = styled("h1")`
@@ -44,14 +44,16 @@ font-family: Arial;
 const NowDiv = styled("div")`
 display:flex;
 flex-flow: row;
-background-color: white;
+background-color: #45A29E;
 margin-top:9%;
 width:80%;
-
-
+padding-top:1.11px;
+padding-bottom:1.11px;
+padding-left: 0.545px;
+padding-right: 0.545px;
 font-size: 25px;
 border: none;
-border:1px #13cbd2 solid;
+
 font-family: Arial;
 `
 const Metric = styled("h1")`
@@ -66,7 +68,7 @@ width: 4%;
 `
 const Now = styled("input")`
 text-align: center;
-background-color: white;
+background-color: #45A29E;
 
 width:56%;
 
@@ -82,8 +84,11 @@ flex-flow: row;
 margin-top:9%;
 margin-bottom:9%;
 width:98%;
-border:1px black solid;
-background-color: #2e2e2e;
+border-top: 1px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 1px solid black;
+background-color: #404040;
 color: #13cbd2;
 border-radius: 5px;
 aspect-ratio: 25/5;
@@ -98,7 +103,7 @@ text-align: right;
 border:none;
 font-size:12px;
 border-radius: 5px;
-background-color: #2e2e2e;
+background-color: #404040;
 color: #13cbd2;
 
 `
@@ -114,8 +119,12 @@ const UpdateButton = styled("button")`
 font-size: 12px;
 margin-top:9%;
 margin-bottom:9%;
+margin-left:1%;
 width:98%;
-border:1px black solid;
+border-top: 1px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 1px solid black;
 background-color: green;
 color: black;
 border-radius: 5px;

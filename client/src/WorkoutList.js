@@ -53,9 +53,12 @@ width:100%;
 margin-left:1%;
 font-size: 20px;
 color:#13cbd2;
-background-color:#404040;
+background-color: #1F2833;
+border-top: 1px solid #13cbd2;
+border-right: 2px solid #13cbd2;
+border-bottom: 2px solid #13cbd2;
+border-left: 1px solid #13cbd2;
 border-radius: 4px;
-border: 1px solid #13cbd2;
 text-align: center;
 margin-bottom: 6.5%;`
 
@@ -74,7 +77,7 @@ function WorkoutList({dayId, workouts, setWorkouts, day, curDay, setCurDay,setLo
               console.log(workouts);})
           }
         });
-    }, []);
+    }, [setSearch]);
     
     
 
@@ -131,7 +134,8 @@ function WorkoutList({dayId, workouts, setWorkouts, day, curDay, setCurDay,setLo
             
             return (
               <InfiniteScroll dataLength={filteredWorkouts.length}
-                height={750}>
+                height={750}
+                className="workoutList">
                 {filteredWorkouts.map((workout) => ( 
                   <Workout 
                   workout={workout}

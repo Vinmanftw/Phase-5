@@ -4,7 +4,11 @@ import styled from 'styled-components'
 
 
 const H1 = styled("h1")`
-
+border-left:1px solid #13cbd2;;
+border-bottom:2px solid #13cbd2;
+border-right:2px solid black;
+border-top:1px solid black;
+background-color:#404040;
 font-size:13px;
 
 border-radius: 5px;
@@ -36,9 +40,12 @@ const Card = styled("div")`
 display: flex;
 flex-flow: column;
 justify-content: flex-start;
-border: 1px black solid;
+border-top: 2px solid black;
+  border-right: 1px solid black;
+  border-bottom: 2px solid black;
+  border-left: 1px solid black;
 border-radius: 20px;
-background-color: #404040;
+background-color: #2e2e2e;
 margin-bottom: 2%;
 padding-bottom: 2%;
 width:96%;
@@ -64,7 +71,10 @@ const VidBox = styled("iframe")`
     
 width: 96%;
 aspect-ratio: 16 / 9;
-border: 1px solid black;
+border-top: 1px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 1px solid black;
 border-radius: 10px;
   
 `
@@ -73,7 +83,10 @@ width: 50%;
 margin-top: 1.5%;
 margin-left:25%;
 background-color: #13cbd2;
-border: 1px black solid;
+border-top: 1px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 1px solid black;
 border-radius: 4px;
 
 

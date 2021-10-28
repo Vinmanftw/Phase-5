@@ -17,13 +17,54 @@ const AddOrDelete = styled("div")`
 display: flex;
 flex-flow: column;
 justify-content:center;
+margin-top:80%;
+gap:3%;
+
 `
-const H1 = styled("h1")`
+const AddOrDeleteColumn = styled("div")`
+display: flex;
+flex-flow: column;
+justify-content:flex-start;
+margin-top:80%;
+gap:3%;
+
+`
+const H1Off = styled("h1")`
 font-size:20px;
-border:1px black solid;
+border-left:1px solid #13cbd2;
+border-bottom:2px solid #13cbd2;
+border-right:2px solid black;
+border-top:1px solid black;
+background-color: #242424;
+color:#13cbd2;
 border-radius: 5px;
 width:100%;
 padding:.5%;
+`
+const H1On = styled("h1")`
+font-size:20px;
+border-left:1px solid #13cbd2;;
+border-bottom:2px solid #13cbd2;
+border-right:2px solid black;
+border-top:1px solid black;
+background-color:#404040;
+border-radius: 5px;
+width:100%;
+padding:.5%;
+`
+
+const H1 = styled("h1")`
+font-size:20px;
+border-left:1px solid black;;
+border-bottom:2px solid black;
+border-right:2px solid black;
+border-top:1px solid black;
+background-color:red;
+color:black;
+border-radius: 5px;
+width:100%;
+padding:2%;
+text-align:center;
 `
 const VideoDiv = styled("div")`
 width:40%;
@@ -37,6 +78,7 @@ const UpdateDeleteDiv = styled("div")`
 display: flex;
 flex-flow: row;
 justify content: flex-end;
+
 width:20%;
 padding:.5%;
 `
@@ -47,16 +89,20 @@ const Card = styled("div")`
 display: flex;
 flex-flow: column;
 justify-content: center;
-border: 1px black solid;
+border-top: 1px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 1px solid black;
 border-radius: 20px;
-background-color: #404040;
+background-color: #2e2e2e;
 margin-bottom: 2%;
 `
 const TopRow = styled("div")`
 display: flex;
 flex-flow: row;
-width:99%;
+width:97%;
 margin-left: 1%;
+gap:1%;
 `
 const SetsRow = styled("div")`
 display: flex;
@@ -81,9 +127,35 @@ background-color: green;
 color: black;
 border-radius: 5px;
 `
+const Add = styled('button')`
+background-color:green;
+border-radius:5px;
+border-left:1px solid black;
+border-bottom:2px solid black;
+border-right:2px solid black;
+border-top:1px solid black;
+width:100%;
+`
+const Delete = styled('button')`
+background-color:red;
+border-radius:5px;
+border-left:1px solid black;
+border-bottom:2px solid black;
+border-right:2px solid black;
+border-top:1px solid black;
+width:100%;
+`
+const DeleteDiv = styled("div")`
+width:15%;
+padding:.5%;`
+
 const DeleteButton = styled("button")`
-margin:auto;
+
 font-size:20px;
+border-left:1px solid black;
+border-bottom:2px solid black;
+border-right:2px solid black;
+border-top:1px solid black;
 text-align: center;
 border:1px black solid;
 background-color: red;
@@ -93,7 +165,10 @@ border-radius: 5px;
 const VidBox = styled("iframe")`
 width: 60%;
 aspect-ratio: 16 / 9;
-border: 1px solid black;
+border-top: 1px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid #13cbd2;
+  border-left: 1px solid #13cbd2;
 border-radius: 10px;
 margin-bottom: 2%;      
 `
@@ -329,14 +404,23 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
           <Card key={workout.id}>
             <TopRow>
              <TitleDiv>
-                <H1 onClick={() =>{setVideoView(false)}}>{workout.name}</H1>
+               {videoView? 
+                <H1On onClick={() =>{setVideoView(false)}}>{workout.name}</H1On>
+                :
+                <H1Off onClick={() =>{setVideoView(false)}}>{workout.name}</H1Off>
+               }
+               
              </TitleDiv>
              <VideoDiv>
-               <H1 onClick={()=>{setVideoView(true)}}>Video & Details</H1>
+              {videoView? 
+                <H1Off onClick={()=>{setVideoView(true)}}>Video & Details</H1Off>
+                :
+                <H1On onClick={()=>{setVideoView(true)}}>Video & Details</H1On>
+               }
              </VideoDiv>
-             <UpdateDeleteDiv>
-               <DeleteButton onClick={handleDeleteCard}>Delete</DeleteButton>
-             </UpdateDeleteDiv>
+             <DeleteDiv>
+              <H1 onClick={handleDeleteCard}>Delete</H1>
+             </DeleteDiv>
             </TopRow>
           {videoView?
             <VideoRow>
@@ -381,8 +465,8 @@ function WorkoutCard({day,workoutIdToDelete,setWorkoutIdToDelete,dayId,setCurDay
             <SetsRow>
               <AddOrDeleteRow>
                 <AddOrDelete>
-                  {curArrayLength<6?<button onClick={handleAddSet}>+</button>:''}
-                  {curArrayLength>1?<button onClick={handleDeleteSet}>-</button>:''}
+                  {curArrayLength<6?<Add onClick={handleAddSet}>+</Add>:''}
+                  {curArrayLength>1?<Delete onClick={handleDeleteSet}>-</Delete>:''}
                 </AddOrDelete>
               </AddOrDeleteRow>
               {mapSets()}          
