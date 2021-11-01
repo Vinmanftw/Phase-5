@@ -1,6 +1,7 @@
 import React, { useState,useEffect, useRouteMatch,useParams } from "react";
 import styled from "styled-components";
 import {useHistory, Link} from "react-router-dom";
+
 const Column = styled("div")`
 margin-top:5%;
 display: flex;
@@ -13,6 +14,13 @@ flex-flow: row;
 justify-content:center;
 gap:1%;`
 const HomeDiv = styled('div')`
+max-width:900px;
+margin: 0 auto;`
+const HomeDivv = styled('div')`
+display:flex;
+flex-flow: column;
+justify-content:flex-start;
+gap:1%;
 max-width:900px;
 margin: 0 auto;`
 const AddButton = styled('button')`
@@ -42,7 +50,8 @@ background-color:#13cbd2;
 margin-top:10%;
 padding-top:1.5%;
 padding-bottom:1.5%;`
-
+const H22 = styled('h2')`
+margin:0 auto;`
 const DayButton= styled('button')`
 color: black;
 font-size:30px;
@@ -388,9 +397,10 @@ function Home({ user, setUser,routineId, setRoutineId, routine, setRoutine }) {
     } 
     else{
       return (
-        <HomeDiv>
-          <h1>Please Login or Sign Up</h1>
-        </HomeDiv>
+        <HomeDivv>
+          <H1>Welcome to your very own P.W.R.C.T. <br></br> Personal Workout Routine Creator & Tracker</H1>
+          <H22>Please login or sign up to start the grind</H22>
+        </HomeDivv>
       
       );
     }
