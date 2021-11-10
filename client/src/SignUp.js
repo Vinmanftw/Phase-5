@@ -216,7 +216,7 @@ function SignUp({ setUser }) {
             }
           });
           
-          history.push('/')
+          history.push('/home')
         });
       }
     });
