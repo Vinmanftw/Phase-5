@@ -25,9 +25,9 @@ function NavBar({ user, setUser }) {
     <Header>
       <div>
       {user ? (
-        <Link to={`/home`}>Home</Link>
+        <Link to={`/`}>Home</Link>
       ) : (
-        <Link to={`/home`}>Home</Link>
+        <Link to={`/`}>Home</Link>
       )}
       </div>
       <Div>

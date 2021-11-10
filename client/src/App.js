@@ -79,7 +79,7 @@ function App() {
             <Route path={`/week/${routineId}/`}>
               <CurRoutine user={user} setUser={setUser} routineId={routineId} routine={routine} setRoutine={setRoutine} dayId={dayId} setDayId={setDayId} day={day} setDay={setDay}/>
             </Route>
-            <Route path={`/home`}>
+            <Route path={`/`}>
               <Home user={user} setUser={setUser} routineId={routineId} setRoutineId={setRoutineId} routine={routine} setRoutine={setRoutine} />
             </Route>
           </Switch>
@@ -91,7 +91,7 @@ function App() {
             <Route path="/login">
               <Login setUser={setUser}/>
             </Route>
-            <Route path="/home">
+            <Route path="/">
               <Home user={user} setUser={setUser} routineId={routineId} setRoutineId={setRoutineId} routine={routine} setRoutine={setRoutine}/>
             </Route>
           </Switch>
